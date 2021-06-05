@@ -1,0 +1,22 @@
+{
+  "coc.preferences.extensionUpdateCheck":"weekly",
+
+  "snippets.ultisnips.directories":[
+      "UltiSnips",
+      "$HOME/.vim/UltiSnips",
+      "$HOME/.vim/plugged/vim-snippets/UltiSnips"
+  ],
+
+  "languageserver": {
+    "ccls": {
+      "command": "ccls",
+      "filetypes": ["c", "cc", "cpp", "c++", "objc", "objcpp"],
+      "rootPatterns": [".ccls", "compile_commands.json", ".git/", ".hg/"],
+      "initializationOptions": {
+         "cache": {
+           "directory": "/tmp/ccls"
+         }
+       }
+    }
+  }
+}
