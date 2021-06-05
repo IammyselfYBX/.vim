@@ -1,0 +1,226 @@
+#-------------------------
+# main
+#-------------------------
+snippet main
+int main(int argc, char *argv[])
+{
+	${0}
+
+	return 0;
+}
+endsnippet
+
+#========================
+# include
+#========================
+
+#-------------------------
+# <>
+#-------------------------
+snippet inc "#include"
+#include <${1:iostream}>
+${0}
+endsnippet
+
+snippet inc" "#include"
+#include "${1:head}"
+endsnippet
+
+#========================
+# namespace
+#========================
+snippet ustd "describe"
+using namespace std;
+endsnippet
+
+#========================
+# define
+#========================
+snippet def "#define"
+#define ${1:name} ${2:value}
+$0
+endsnippet
+
+
+
+#===========================
+# class
+#============================
+snippet cla "class"
+class ${1:classname}
+{
+private:
+	${2}
+public:
+	${3}
+protected:
+	${4}
+};
+${0}
+endsnippet
+
+snippet clp "class"
+class ${1:classname} : public ${2:classname}
+{
+public:
+	${3}
+protected:
+	${4}
+private:
+	${5}
+};
+${0}
+endsnippet
+
+snippet clp2 "class"
+class ${1:classname} : public ${2:classname}, ${3:classname}
+{
+public:
+	${4}
+protected:
+	${5}
+private:
+	${6}
+};
+${0}
+endsnippet
+
+#---------------------------
+# if
+#---------------------------
+snippet if
+if ($1) {
+	$2
+}$0
+endsnippet
+
+#--------------------------
+# for
+#--------------------------
+snippet for
+for (int ${2:i} = 0; $2 < ${1:count}; $2${3:++}) {
+	${4}
+}
+endsnippet
+
+snippet for=
+for (int ${2:i} = 0; $2 <= ${1:count}; $2${3:++}) {
+	${4}
+}
+endsnippet
+
+#==============================
+# function
+#=============================
+snippet dfv "define function"
+void ${1:function}(${2})
+{
+	${3}
+}
+${0}
+endsnippet
+
+snippet dfi "define function"
+int ${1:function}(${2})
+{
+	${3}
+}
+${0}
+endsnippet
+
+#==============================
+# struct
+#==============================
+snippet st
+struct ${1:struct_name}
+{
+	$2
+};$0
+endsnippet
+
+snippet tst
+typedef struct ${1:struct_name}
+{
+	$2
+}$1;$0
+endsnippet
+
+#=============================
+#  匹配符
+#=============================
+snippet {}  
+{
+	${1}
+}${0}
+endsnippet
+
+#============================
+# cin cout
+#=============================
+snippet co
+cout<<${1};${0}
+endsnippet
+
+snippet coe
+cout<<${1}<<endl;${0}
+endsnippet
+
+
+#=============================
+# Template
+#=============================
+snippet tef
+template <typename ${1:identifer}> 
+$1 ${2:fun}($1 ${3:para1}, $1 ${4:para2});
+endsnippet
+
+snippet tec
+template <class ${1:identifer} > 
+$1 ${2:fun}($1 ${3:para1}, $1 ${4:parm2});
+${0}
+endsnippet
+
+#=============================
+# namespace
+#============================
+snippet na
+namespace ${1:identifer}
+{
+	$2
+}
+$0
+endsnippet
+
+#=============================
+#	try catch
+#=============================
+snippet tc
+try {
+	// code to be tried
+	${1:throw exception};
+}
+catch (${2:type exception})
+{
+	//code to be executed in case of exception
+	$3
+}
+$0
+endsnippet
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

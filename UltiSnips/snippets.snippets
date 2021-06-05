@@ -1,0 +1,32 @@
+#-------------------------
+# 定义snippet 代码片段 
+#-------------------------
+snippet sni "structure snippet"
+snippet ${1:name} "${2:describe}"
+${3:code}
+${4:endsnippet}
+endsnippet
+
+snippet ends
+${0}endsnippet${1}
+endsnippet
+
+
+#--------------------------
+# 定义注释
+#--------------------------
+snippet #= "annotation"
+#========================
+# ${1:note}
+#========================
+endsnippet
+
+snippet #- "describe ----"
+#-------------------------
+# ${1:note}
+#-------------------------
+endsnippet
+
+
+
+

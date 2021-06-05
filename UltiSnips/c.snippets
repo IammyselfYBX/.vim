@@ -1,0 +1,163 @@
+#========================
+# C main
+#========================
+# main(int )
+snippet main
+int main(int argc, char *argv[])
+{
+	${0}
+
+	return 0;
+}
+endsnippet
+# main(void)
+snippet mainn
+int main(void)
+{
+	${0}
+
+	return 0;
+}
+endsnippet
+
+#========================
+# 预处理
+#========================
+#-------------------------
+# include
+#-------------------------
+snippet inc "#include"
+#include <${1:stdio}.h>
+${0}
+endsnippet
+
+snippet inc" "#include"
+#include "${1:stdio}.h"
+${0}
+endsnippet
+
+#-------------------------
+# define
+#-------------------------
+snippet def 
+#define ${1:SYMBOL} ${2:value}
+endsnippet
+
+#========================
+# 控制信息
+#========================
+#-------------------------
+# if
+#-------------------------
+snippet if
+if (${1:true}) {
+	${0:${VISUAL}}
+}
+endsnippet
+
+snippet ife
+if (${1:true}) {
+	${2:${VISUAL}}
+} else {
+	${0}
+}
+endsnippet
+
+#-------------------------
+# switch
+#-------------------------
+snippet switch
+switch (${1:/* variable */}) {
+	case ${2:/* variable case */}:
+		${3}
+		${4:break;}${5}
+	default:
+		${6}
+}
+endsnippet
+
+#-------------------------
+# for
+#-------------------------
+snippet for
+for (int ${2:i} = 0; $2 < ${1:count}; $2${3:++}) {
+	${4}
+}
+endsnippet
+
+snippet for=
+for (int ${2:i} = 0; $2 <= ${1:count}; $2${3:++}) {
+	${4}
+}
+endsnippet
+
+#=============================
+#  匹配符
+#=============================
+snippet {}
+{
+	${1}
+}${0}
+endsnippet
+
+#========================
+# 输入/输出
+#========================
+snippet prs
+printf("${1:%s}\n"${2:,string});
+endsnippet
+
+snippet prd
+printf("${1:%d}\n"${2:,int});
+endsnippet
+
+snippet prf
+printf("${1:%f}\n"${2:,float});
+endsnippet
+
+#========================
+# free
+#========================
+snippet free( "describe"
+free(${1:p})
+p=NULL;
+endsnippet
+
+#=================================================================
+#-------------------------
+# 链表
+#----------------------------
+
+# 顺序存储
+snippet sqList1
+#define MAX 100
+typedef struct
+{
+	ElemType ${2:date}[MAX];
+	int listsize;
+	int length;
+}${1:sqList};
+${0}
+endsnippet
+
+
+snippet sqList2
+typedef struct
+{
+	ElemType *${2:date};
+	int listsize;
+	int length;
+}${1:sqList};
+${0}
+endsnippet
+
+
+
+
+
+
+
+
+
+
+

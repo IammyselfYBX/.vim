@@ -1,0 +1,46 @@
+snippet class "describe"
+class ${1:classname}
+{
+  ${0}
+}
+endsnippet
+
+#-------------------------
+# awt.*
+#-------------------------
+snippet imawt "describe"
+import java.awt.*;
+endsnippet
+
+#-------------------------
+# swing.*
+#-------------------------
+snippet imswing "describe"
+import javax.swing.*;
+endsnippet
+
+#-------------------------
+# for
+#-------------------------
+snippet for
+for (int ${2:i} = 0; $2 < ${1:count}; $2${3:++}) {
+	${4}
+}
+endsnippet
+
+#-------------------------
+# print
+#-------------------------
+snippet syso "describe"
+System.out.println(${1});
+endsnippet
+
+#-------------------------
+# main
+#-------------------------
+snippet main "describe"
+public static void main (String[] args) { 
+	${1}
+}
+endsnippet	
+
