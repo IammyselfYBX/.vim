@@ -154,10 +154,10 @@ inoremap <S-down> <ESC>:set splitbelow<CR>:split<CR>i
 
 
 "重新调整左右大小
-noremap <C-S-left> :vertical resize-5<CR>
-noremap <C-S-right> :vertical resize+5<CR>
-noremap <C-S-up> :res +5<CR>
-noremap <C-S-down> :res -5<CR>
+noremap <C-M-left> :vertical resize-5<CR>
+noremap <C-M-right> :vertical resize+5<CR>
+noremap <C-M-up> :res +5 <CR>
+noremap <C-M-down> :res -5 <CR> 
 
 "分屏移动光标
 noremap <C-h> <C-w>h "跳转到左边的窗口
