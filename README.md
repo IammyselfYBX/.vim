@@ -9,7 +9,4 @@
   
 ```
 
-## 安装
-```
-$> ln -s ~/.vim/.vimrc ~/.vimrc
-```
+# [教程](https://github.com/IammyselfYBX/.vim/wiki)
