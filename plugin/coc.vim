@@ -3,7 +3,8 @@
 let  g:coc_global_extensions = [
   \ 'coc-json',
   \ 'coc-tsserver',
-  \ 'coc-vimlsp']
+  \ 'coc-vimlsp',
+  \ 'coc-snippets']
 
 
 "允许未保存文件就可以跳转其他文件，但是退出的时候会提醒
@@ -40,11 +41,15 @@ inoremap <silent><expr> <c-o> coc#refresh()
 " position. Coc only does snippet and additional edit on confirm.
 " <cr> could be remapped by other vim plugin, try `:verbose imap <CR>`.
 " 用<CR>选择补全内容
-if exists('*complete_info')
-  inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
-else
-  inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-endif
+" 回车选中补全，而不是换行
+inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+" 如果vim 支持 `complete_info` 可以用下面的代码
+" if exists('*complete_info')
+"   inoremap <expr> <CR> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
+" else
+"   inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+" endif
+
 
 
 
@@ -72,5 +77,29 @@ function! s:show_documentation()
   endif
 endfunction
 
-" 翻译功能
-nmap <C-t> :CocCommand translator.popup<CR>
+" coc-snippets
+"" Use <C-l> for trigger snippet expand.
+imap <tab> <Plug>(coc-snippets-expand)
+"" Use <tab> for select text for visual placeholder of snippet.
+vmap <tab> <Plug>(coc-snippets-select)
+"" Use <tab> for jump to next placeholder, it's default of coc.nvim
+let g:coc_snippet_next = '<tab>'
+"" Use <S-tab> for jump to previous placeholder, it's default of coc.nvim
+let g:coc_snippet_prev = '<S-tab>'
+"" Use <C-j> for both expand and jump (make expand higher priority.)
+imap <C-j> <Plug>(coc-snippets-expand-jump)
+"" Use <leader>x for convert visual selected code to snippet
+xmap <leader>x  <Plug>(coc-convert-snippet)
+inoremap <silent><expr> <TAB>
+      \ coc#pum#visible() ? coc#_select_confirm() :
+      \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
+      \ CheckBackspace() ? "\<TAB>" :
+      \ coc#refresh()
+
+function! CheckBackspace() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+let g:coc_snippet_next = '<tab>'
+

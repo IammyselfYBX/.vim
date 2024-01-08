@@ -20,8 +20,7 @@
 nnoremap <C-q> :q<CR>
 
 " <C-r> 是刷新配置文件
-noremap <C-r> :source $MYVIMRC<CR>
-noremap <Leader>o <C-r>
+noremap <C-S-r> :source $MYVIMRC<CR>
 
 " <S-u> 是恢复撤销的内容
 " <C-u> 来撤消对整行的修改。
@@ -209,7 +208,8 @@ autocmd BufRead * normal zR " 默认打开新文件折叠全部打开
 
 "====================================================
 "============= 文件格式 =============================
-set encoding=utf-8
+" set encoding=utf-8 " 不处理中文
+set fileencodings=ucs-bom,utf-8,gb18030,latin1 "处理中文
 
 "想使用 <SPACE><SPACE> 来进行跳转下一个占位符
 "noremap <SPACE><SPACE> <Esc>/<++><CR>:nohlsearch<CR>ciw
@@ -243,7 +243,26 @@ noremap tu :-tabnext<CR>
 if !filewritable(expand('~/.vim/swap'))    " 判断文件是否存在"
     silent exec "!mkdir -p ~/.vim/swap"
 endif
-set directory=$HOME/.vim/swap//
+" set directory=$HOME/.vim/swap//
+if has('nvim')
+  " This is Neovim
+  set dir=$HOME/.vim/swap//
+else
+  " This is Vim
+  set directory=$HOME/.vim/swap//
+endif
+
+
+"==============================
+"撤销与备份
+"==============================
+set nobackup
+set undofile  "重新打开文件依旧可以撤销之前的编辑
+set undodir=$HOME/.vim/undodir
+" 使用vim自动创建
+if !isdirectory(&undodir)
+  call mkdir(&undodir, 'p', 0700)
+endif
 
 " iabbrev YBX_demo YBX is the most handsome man in NCEPU
 
@@ -296,14 +315,17 @@ call plug#begin('~/.vim/plugged')
 	Plug 'dense-analysis/ale'	
 
   "coc ~/.vim/plugin/coc.vim
+  " $> pacman -S nodejs yarn
   Plug 'neoclide/coc.nvim', {'branch': 'release'}
+  Plug 'yelled1/coc-python', {'do': 'yarn install --frozen-lockfile'}
 
   " fzf ~/.vim/plugin/fzf.vim
   Plug 'junegunn/fzf.vim'
 
   "vim snippets ~/.vim/plugin/snippet.vim
-	Plug 'SirVer/ultisnips'   "管理snippets的插件
+  "Plug 'SirVer/ultisnips'   "snippets引擎 已经用coc-snippets取代
 	Plug 'honza/vim-snippets' "代码小片段
+  let g:python3_host_prog = "/usr/bin/python3"
 
   """ markdown 
   " Markdown Preview for (Neo)vim ~/.vim/plugin/markdown/markdown-preview-for-vim.vim 
@@ -345,6 +367,7 @@ call plug#end()
 
 "=================vim-table-mode----------
 " 使用说明
+" <C-\> 开启/关闭
 " 1. '[|', ']|', '{|' '}|' 分别表示移动向 left | right | up | down 
 " 2. i| 表示向前插入一个格
 "    a| 表示向后插入一个格
@@ -358,41 +381,46 @@ call plug#end()
         " C Compiler:
         "autocmd FileType c nnoremap <buffer> <C-c> :!gcc % -o %< && ./%< <CR>
         autocmd FileType c nnoremap <buffer> <C-c> :AsyncRun gcc -Wall % -o %< <CR>
-        autocmd FileType c nnoremap <buffer> <C-i> :! ./%< <CR>
+        "autocmd FileType c nnoremap <buffer> <C-r> :! ./%< <CR>
+        autocmd FileType c nnoremap <buffer> <C-r> :AsyncRun ./%< <CR>
 
         " C++ Compiler
         au BufRead,BufNewFile *.h set filetype=cpp "有时.h文件默认时C的,引入C++的头文件ALE会报错
         "autocmd FileType cpp nnoremap <buffer> <C-i> :!g++ % -o %< && ./%:r <CR>
         autocmd FileType cpp nnoremap <buffer> <C-c> :AsyncRun g++ % -o %< <CR>
-        autocmd FileType cpp nnoremap <buffer> <C-i> :! ./%:r <CR>
+        autocmd FileType cpp nnoremap <buffer> <C-r> :AsyncRun ./%:r <CR>
 
         " Python Interpreter
-        autocmd FileType python nnoremap <buffer> <C-i> :!python % <CR>
+        " autocmd FileType python nnoremap <buffer> <C-i> :!python % <CR>
+        autocmd FileType python nnoremap <buffer> <C-r> :AsyncRun python % <CR>
 
         " Bash script
-        autocmd FileType sh nnoremap <buffer> <C-i> :!sh % <CR>
+        " autocmd FileType sh nnoremap <buffer> <C-i> :!sh % <CR>
+        autocmd FileType python nnoremap <buffer> <C-r> :AsyncRun sh % <CR>
 
         " Executable
-        nnoremap <buffer> <C-i> :!./% <CR>
+        " nnoremap <buffer> <C-i> :!./% <CR>
+        nnoremap <buffer> <C-r> :AsyncRun ./% <CR>
 
         " RCs (Configs)
-        autocmd FileType vim,zsh,tmux nnoremap <buffer> <C-i> :source % <CR>
+        autocmd FileType vim,zsh,tmux nnoremap <buffer> <C-r> :source % <CR>
 
 				" Java
 				"autocmd Filetype java nnoremap <buffer> <C-i> :!javac % && java %:r <CR>
 				autocmd Filetype java nnoremap <buffer> <C-c> :AsyncRun javac % <CR>
-				autocmd Filetype java nnoremap <buffer> <C-i> :! java %:r <CR>
+				"autocmd Filetype java nnoremap <buffer> <C-i> :! java %:r <CR>
+        autocmd Filetype java nnoremap <buffer> <C-r> :AsyncRun java %:r <CR>
 
         " HTML
         autocmd Filetype html nnoremap <buffer> <C-i> :!firefox % &<CR>
 
         " Markdown 前提是已经安装MarkdownPreview插件
-        autocmd Filetype markdown nnoremap <buffer> <C-i> :MarkdownPreview <CR>
+        autocmd Filetype markdown nnoremap <buffer> <C-r> :MarkdownPreview <CR>
         autocmd Filetype markdown source ~/.vim/UltiSnips/markdown.vim
 
         " Latex 
         autocmd Filetype tex nnoremap <buffer> <C-c> :AsyncRun latexmk <cr>
-        autocmd Filetype tex nnoremap <buffer> <C-i> :LLPStartPreview<cr>
+        autocmd Filetype tex nnoremap <buffer> <C-r> :LLPStartPreview<cr>
 
 
 "---------------------------------------------------
