@@ -203,7 +203,15 @@ autocmd BufRead * normal zR " 默认打开新文件折叠全部打开
 " zM  关闭所有的折叠
 
 
-
+"----------------------------------------------------
+" 符号匹配
+"----------------------------------------------------
+inoremap ( ()<Esc>i
+inoremap [ []<Esc>i
+inoremap < <><Esc>i
+inoremap { {}<Esc>i
+inoremap ' ''<Esc>i
+inoremap " ""<Esc>i
 
 
 "====================================================
@@ -293,7 +301,9 @@ endif
 call plug#begin('~/.vim/plugged')
   " 获得vim-plug的帮助手册
   Plug 'junegunn/vim-plug' 
-
+  "let g:plug_url_format='https://git::@hub.fastgit.org/%s.git' "更换国内github加速镜像
+  let g:plug_url_format = 'git@github.com:%s.git' "设置为ssh协议访问
+  
   " airline       ~/.vim/plugin/airline.vim
 	Plug 'vim-airline/vim-airline'
 
@@ -320,6 +330,7 @@ call plug#begin('~/.vim/plugged')
   Plug 'yelled1/coc-python', {'do': 'yarn install --frozen-lockfile'}
 
   " fzf ~/.vim/plugin/fzf.vim
+  Plug 'junegunn/fzf'
   Plug 'junegunn/fzf.vim'
 
   "vim snippets ~/.vim/plugin/snippet.vim
@@ -392,7 +403,7 @@ call plug#end()
 
         " Python Interpreter
         " autocmd FileType python nnoremap <buffer> <C-i> :!python % <CR>
-        autocmd FileType python nnoremap <buffer> <C-r> :AsyncRun python % <CR>
+        autocmd FileType python nnoremap <buffer> <C-r> :AsyncRun python3 % <CR>
 
         " Bash script
         " autocmd FileType sh nnoremap <buffer> <C-i> :!sh % <CR>

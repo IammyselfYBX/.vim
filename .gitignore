@@ -1,3 +1,5 @@
 # vim-plug的插件不包括
 plugged/*
 .netrwhist
+swap/* 
+undodir/*
