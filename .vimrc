@@ -212,7 +212,19 @@ inoremap < <><Esc>i
 inoremap { {}<Esc>i
 inoremap ' ''<Esc>i
 inoremap " ""<Esc>i
-
+function! JumpOver(char)
+    if getline(".")[col(".")-1] == a:char
+        return "\<Right>"
+    else
+        return a:char
+    endif
+endfunction
+inoremap <expr> ) JumpOver(')')
+inoremap <expr> ] JumpOver(']')
+inoremap <expr> > JumpOver('>')
+inoremap <expr> } JumpOver('}')
+inoremap <expr> ' JumpOver("'")
+inoremap <expr> " JumpOver('"')
 
 "====================================================
 "============= 文件格式 =============================
