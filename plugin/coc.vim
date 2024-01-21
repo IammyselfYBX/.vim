@@ -42,7 +42,16 @@ inoremap <silent><expr> <c-o> coc#refresh()
 " <cr> could be remapped by other vim plugin, try `:verbose imap <CR>`.
 " 用<CR>选择补全内容
 " 回车选中补全，而不是换行
-inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+"inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<Esc>:call Checkcursor()\<CR>"
+function! Checkcursor()
+  let b:letters = strcharpart(getline('.')[col('.') - 1:], 0, 2)
+  if b:letters == '{}'
+    call feedkeys("li\<CR>\<Esc>\ko", "n")
+  else
+    call feedkeys('o')
+  endif
+endfunction
 " 如果vim 支持 `complete_info` 可以用下面的代码
 " if exists('*complete_info')
 "   inoremap <expr> <CR> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
