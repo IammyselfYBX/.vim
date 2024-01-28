@@ -1,0 +1,1 @@
+/home/tony/.config/nvim/.vimrc

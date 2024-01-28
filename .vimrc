@@ -133,17 +133,15 @@ if (has("termguicolors"))
 endif
 
 " gruvbox
-" try
-"     "colorscheme gruvbox
-"     set background=dark
-" catch
-"     echo "访问 https://github.com/morhetz/gruvbox下载"
-" endtry
+"try
+"    colorscheme gruvbox
+"    set background=dark
+"catch
+"    echo "访问 https://github.com/morhetz/gruvbox下载"
+"endtry
 
 "------------------------
 " palenight配置
-
-" Italics for my favorite color scheme
 try
     colorscheme palenight
     let g:palenight_terminal_italics=1 " 默认字体是斜体
@@ -402,6 +400,8 @@ call plug#begin('~/.vim/plugged')
   " Undo-tree     ~/.vim/plugin/undotree.vim
   Plug 'mbbill/undotree'
   
+  "github copilot ~/.vim/plugin/github-copilot.vim
+  Plug 'github/copilot.vim'
 call plug#end()
 
 "=============================================
