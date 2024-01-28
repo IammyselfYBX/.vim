@@ -116,12 +116,36 @@ endif
 
 "------- 高亮 -------------
 syntax on "代码高亮
+"==============================
+" 主题配置
+"------------------------
+" 启用真彩色
+if (has("nvim"))
+  "For Neovim 0.1.3 and 0.1.4 < https://github.com/neovim/neovim/pull/2198 >
+  let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+endif
+
+"For Neovim > 0.1.5 and Vim > patch 7.4.1799 < https://github.com/vim/vim/commit/61be73bb0f965a895bfb064ea3e55476ac175162 >
+"Based on Vim patch 7.4.1770 (`guicolors` option) < https://github.com/vim/vim/commit/8a633e3427b47286869aa4b96f2bfc1fe65b25cd >
+" < https://github.com/neovim/neovim/wiki/Following-HEAD#20160511 >
+if (has("termguicolors"))
+  set termguicolors
+endif
+
+" gruvbox
 try
-    colorscheme gruvbox
+    "colorscheme gruvbox
+    colorscheme palenight
     set background=dark
 catch
-    echo "You need visit https://github.com/morhetz/gruvbox"
+    echo "访问 https://github.com/morhetz/gruvbox下载"
 endtry
+
+"------------------------
+" palenight配置
+
+" Italics for my favorite color scheme
+let g:palenight_terminal_italics=1
 
 
 "------- 搜索 ----------
