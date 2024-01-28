@@ -379,6 +379,9 @@ call plug#begin('~/.vim/plugged')
 
   "vim snippets ~/.vim/plugin/snippet.vim
   "Plug 'SirVer/ultisnips'   "snippets引擎 已经用coc-snippets取代
+  " coc的snippets具体配置文件 ~/.vim/c-settings.json
+  " 其中 YBXUltiSnips 是自定义的snippets
+  " vim-snippets/UltiSnips是现成的snippets
 	Plug 'honza/vim-snippets' "代码小片段
   let g:python3_host_prog = "/usr/bin/python3"
 
@@ -398,6 +401,7 @@ call plug#begin('~/.vim/plugged')
   
   " Undo-tree     ~/.vim/plugin/undotree.vim
   Plug 'mbbill/undotree'
+  
 call plug#end()
 
 "=============================================

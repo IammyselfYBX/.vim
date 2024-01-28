@@ -3,7 +3,7 @@
 
   "snippets.ultisnips.directories":[
       "UltiSnips",
-      "$HOME/.vim/UltiSnips",
+      "$HOME/.vim/YBXUltiSnips",
       "$HOME/.vim/plugged/vim-snippets/UltiSnips"
   ],
 
