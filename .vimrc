@@ -234,8 +234,9 @@ inoremap ( ()<Esc>i
 inoremap [ []<Esc>i
 inoremap < <><Esc>i
 inoremap { {}<Esc>i
-inoremap ' ''<Esc>i
-inoremap " ""<Esc>i
+" inoremap ' ''<Esc>i
+" inoremap " ""<Esc>i
+" 实现当重复输入的时候自动跳过
 function! JumpOver(char)
     if getline(".")[col(".")-1] == a:char
         return "\<Right>"
@@ -247,8 +248,10 @@ inoremap <expr> ) JumpOver(')')
 inoremap <expr> ] JumpOver(']')
 inoremap <expr> > JumpOver('>')
 inoremap <expr> } JumpOver('}')
-inoremap <expr> ' JumpOver("'")
-inoremap <expr> " JumpOver('"')
+"inoremap <expr> ' JumpOver('\'')
+"inoremap <expr> " JumpOver('"')
+
+
 
 "====================================================
 "============= 文件格式 =============================
