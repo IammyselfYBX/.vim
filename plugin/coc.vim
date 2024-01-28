@@ -42,16 +42,72 @@ inoremap <silent><expr> <c-o> coc#refresh()
 " <cr> could be remapped by other vim plugin, try `:verbose imap <CR>`.
 " 用<CR>选择补全内容
 " 回车选中补全，而不是换行
-"inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<Esc>:call Checkcursor()\<CR>"
-function! Checkcursor()
+"
+" pumvisible() 是 Vimscript 中的一个函数，用于检查弹出菜单（通常是自动补全菜单）是否可见。
+"   如果弹出菜单当前可见，pumvisible() 将返回 1，否则返回 0。
+"   这个函数通常用于在映射（mapping）中改变基于弹出菜单状态的行为。
+"
+" feedkeys() 是 Vimscript 中的一个函数，它的作用是将字符串作为键盘输入插入到输入流中。这个函数的常见用途是模拟用户的键盘输入。
+"   feedkeys() 函数接受两个参数
+"     第一个参数是你想要输入的字符串。这个字符串可以包含普通的字符，也可以包含特殊的键盘按键。例如，"\<C-g>u\<CR>" 就表示 Control + g, u, 然后回车。
+"     第二个参数是一个可选的字符串，用来控制 feedkeys() 的行为。例如，"n" 表示将输入的字符作为普通模式的命令来处理。
+"
+" <C-y> 
+"   在插入模式和命令行模式下：会插入上一行的当前列的字符。
+"   弹出菜单（如自动补全菜单）可见时：<C-y> 会选择当前高亮的补全项，并关闭弹出菜单。
+"
+" <C-g>u
+"   在 Vim 中，连续的插入操作会被视为一个撤销块，也就是说，如果你在插入模式下连续输入了多个字符，然后切换到普通模式，按 u 键进行撤销操作，会将你在插入模式下输入的所有字符一次性撤销。
+"   但是，如果你在插入模式下输入了 <C-g>u，那么 Vim 会在这里打破撤销序列，也就是说，<C-g>u 之后的插入操作会被视为一个新的撤销块。这样，你就可以分别撤销 <C-g>u 之前和之后的插入操作了。
+"   例如，如果你在插入模式下输入了 abc<C-g>udef，然后切换到普通模式，按 u 键进行撤销操作，首先会撤销 def，再按一次 u 键，会撤销 abc。
+"
+" inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+
+inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<Esc>:call BraceReturn()\<CR>"
+function! BraceReturn()
   let b:letters = strcharpart(getline('.')[col('.') - 1:], 0, 2)
-  if b:letters == '{}'
-    call feedkeys("li\<CR>\<Esc>\ko", "n")
+  if b:letters == '{}' " 如果是一行的结尾是{}回车启用自动换行效果
+    call feedkeys("li\<CR>\<Esc>ko", "n")
   else
-    call feedkeys('o')
+    call feedkeys("a\<CR>", "n")
   endif
 endfunction
+
+" inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<Esc>:call BraceReturn()\<CR>"
+" function! BraceReturn()
+"   let b:letters = strcharpart(getline('.')[col('.') - 1:], 0, 2)
+"   if b:letters == '{}' " 如果是一行的结尾是{}回车启用自动换行效果
+"     call feedkeys("li\<CR>\<Esc>\ko", "n")
+"   else
+"     "call feedkeys('o')
+"     return "\<C-y>"
+"   endif
+" endfunction
+" inoremap <expr> <CR> BraceReturnOrComplete()  
+
+" inoremap <expr> <CR> BraceReturnOrComplete()       
+"               
+" function! BraceReturnOrComplete()  
+"   if pumvisible()  
+"     return "\<C-y>"  
+"   else  
+"     call BraceReturn()  
+"     return "\<CR>"  
+"   endif  
+" endfunction  
+" 
+" function! BraceReturn()  
+"   let b:letters = strcharpart(getline('.')[col('.') - 1:], 0, 2)  
+"   if b:letters == '{}' " 如果一行的结尾是{}，则回车启用自动换行效果  
+"     call feedkeys("li\<CR>\<Esc>\ko", "n")  
+"   else  
+"     " 原来的逻辑：如果没有{}，则执行这里的代码  
+"     " （这里可以放置您原本打算放在“整合位置”的代码）  
+"     " 例如，您可以返回一个普通的回车，或者执行其他操作  
+"     " 目前这里什么都不做，只是返回普通的回车  
+"   endif  
+" endfunction
+
 " 如果vim 支持 `complete_info` 可以用下面的代码
 " if exists('*complete_info')
 "   inoremap <expr> <CR> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
