@@ -133,19 +133,24 @@ if (has("termguicolors"))
 endif
 
 " gruvbox
-try
-    "colorscheme gruvbox
-    colorscheme palenight
-    set background=dark
-catch
-    echo "访问 https://github.com/morhetz/gruvbox下载"
-endtry
+" try
+"     "colorscheme gruvbox
+"     set background=dark
+" catch
+"     echo "访问 https://github.com/morhetz/gruvbox下载"
+" endtry
 
 "------------------------
 " palenight配置
 
 " Italics for my favorite color scheme
-let g:palenight_terminal_italics=1
+try
+    colorscheme palenight
+    let g:palenight_terminal_italics=1 " 默认字体是斜体
+    set background=dark
+catch
+    echo "访问https://github.com/drewtempelmeyer/palenight.vim下载"
+endtry
 
 
 "------- 搜索 ----------
