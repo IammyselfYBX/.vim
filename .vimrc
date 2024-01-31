@@ -273,7 +273,13 @@ noremap <SPACE><SPACE> <Esc>/<++><CR>:nohlsearch<CR>4cl
 "======= 终端=====================
 "=================================
 " 我一般想让终端在下面
-noremap <LEADER>t :set splitbelow<CR>:term<CR>
+if has('nvim')
+  " This is Neovim
+  noremap <LEADER>t :split term://bash<CR>:set modifiable<CR>
+else
+  " This is Vim
+  noremap <LEADER>t :set splitbelow<CR>:term<CR>
+endif
 
 
 
