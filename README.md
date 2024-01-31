@@ -11,10 +11,26 @@ __   _(_)_ __ ___  _ __ ___   / (_)_ __ (_) |___   _(_)_ __ ___
 \ \ / / | '_ ` _ \| '__/ __| / /| | '_ \| | __\ \ / / | '_ ` _ \
  \ V /| | | | | | | | | (__ / / | | | | | | |_ \ V /| | | | | | |
   \_/ |_|_| |_| |_|_|  \___/_/  |_|_| |_|_|\__(_)_/ |_|_| |_| |_|
+
 ```
 
-# [WIKI](https://github.com/IammyselfYBX/.vim/wiki)
-## [安装配置文件](https://github.com/IammyselfYBX/.vim/wiki/%E5%AE%89%E8%A3%85)
-## [本配置文件设置的快捷键](https://github.com/IammyselfYBX/.vim/wiki/%E5%BF%AB%E6%8D%B7%E9%94%AE)
+# 目录结构
+```
+.
+├── autoload       # [自带]vim自启动的脚本
+│   └── plug.vim   # vim-plug插件(考虑到外网下载速度，就已经自带安装到autoload文件夹中)
+├── colors         # 颜色主题
+├── pack           # 自定义的插件
+│   ├── UtilityPlugin  # 实用工具
+│   │    ├── start # vim开机自启动的插件
+│   │    └── opt   # 手动:packadd加载插件
+│   │        └── iciba-translate # 金山翻译
+│   └── OtherPlugin    # 其他工具
+├── plugged        # vim-plug 安装的插件(与github同步，不会同步)
+├── plugin         # [自带]vim自启动时加载的插件(这里存放如何设置vim-plug安装的插件)
+├── swap           # swap文件位置
+├── YBXUltiSnips   # 自定义的snippets片段
+└── undodir        # 重新打开文件依旧可以撤销之前的编辑的缓存文件
+```
 
 
