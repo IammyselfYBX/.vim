@@ -25,6 +25,8 @@ __   _(_)_ __ ___  _ __ ___   / (_)_ __ (_) |___   _(_)_ __ ___
 │   │    ├── start # vim开机自启动的插件
 │   │    └── opt   # 手动:packadd加载插件
 │   │        └── iciba-translate # 金山翻译
+│   │            ├── plugin # 金山翻译插件代码
+│   │            └── syntax # 语法突出显示的 Vim 脚本
 │   └── OtherPlugin    # 其他工具
 ├── plugged        # vim-plug 安装的插件(与github同步，不会同步)
 ├── plugin         # [自带]vim自启动时加载的插件(这里存放如何设置vim-plug安装的插件)
