@@ -357,7 +357,7 @@ call plug#begin('~/.vim/plugged')
 
 	"nertree ~/.vim/plugin/nerdtree/nerdtree.vim
   "nerdtree-git  ~/.vim/plugin/nerdtree/nerdtree-git.vim 
-  Plug 'preservim/nerdtree',{'on':  'NERDTreeToggle'} " 表明执行NERDTreeToggle才加载插件
+  Plug 'https://github.com/preservim/nerdtree',{'on':  'NERDTreeToggle'} " 表明执行NERDTreeToggle才加载插件
 	Plug 'Xuyuanp/nerdtree-git-plugin'
 
   " vim-gutentags 自动索引 ~/.vim/plugin/vim-gutentags.vim
@@ -375,7 +375,7 @@ call plug#begin('~/.vim/plugged')
   "coc ~/.vim/plugin/coc.vim
   " $> pacman -S nodejs yarn
   Plug 'neoclide/coc.nvim', {'branch': 'release'}
-  Plug 'yelled1/coc-python', {'do': 'yarn install --frozen-lockfile'}
+  Plug 'yelled1/coc-python', {'do': 'yarn install --frozen-lockfile', 'for': 'python'}
 
   " fzf ~/.vim/plugin/fzf.vim
   Plug 'junegunn/fzf'
@@ -397,7 +397,7 @@ call plug#begin('~/.vim/plugged')
 	"Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}	 
   " 加上 'for': ['markdown', 'vim-plug']} 就是只有加载markdown的时候,才加载这个插件,这样启动会快一些
   " vim-table-mode
-  Plug 'dhruvasagar/vim-table-mode'
+  Plug 'dhruvasagar/vim-table-mode', { 'do': { -> mkdp#util#install() }, 'for': 'markdown'}
 
 	" A Vim Plugin for Lively Previewing LaTeX PDF Output
   " ~/.vim/plugin/latex/vim-latex-live-preview.vim
@@ -408,6 +408,7 @@ call plug#begin('~/.vim/plugged')
   
   "github copilot ~/.vim/plugin/github-copilot.vim
   Plug 'github/copilot.vim'
+
 call plug#end()
 
 "=============================================
