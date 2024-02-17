@@ -39,18 +39,18 @@ def show(node):
             tag_name = node.parentNode.tagName
             content = node.data.replace('\n', '')
             if tag_name == 'ps':
-                print(content)
-                print('---------------------------')
+                print(content, end=" ")
+                
             elif tag_name == 'orig':
                 print(content)
             elif tag_name == 'trans':
                 print(content)
                 print('---------------------------')
             elif tag_name == 'pos':
-                print(content)
+                print(content, end=" ")
             elif tag_name == 'acceptation':
                 print(content)
-                print('---------------------------')
+                print('==========================')
     else:
         for e in node.childNodes:
             show(e)
