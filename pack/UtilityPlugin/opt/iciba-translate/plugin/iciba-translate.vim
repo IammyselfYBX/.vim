@@ -38,15 +38,18 @@ def show(node):
         if node.nodeType == node.TEXT_NODE and node.data != '\n':
             tag_name = node.parentNode.tagName
             content = node.data.replace('\n', '')
-            if tag_name == 'ps':
+            if tag_name == 'key':
                 print(content, end=" ")
-                
+            if tag_name == 'ps':
+                print(f"/" + content + f"/", end=" ")
             elif tag_name == 'orig':
                 print(content)
             elif tag_name == 'trans':
                 print(content)
                 print('---------------------------')
             elif tag_name == 'pos':
+                print(' ')
+                print('==========================')
                 print(content, end=" ")
             elif tag_name == 'acceptation':
                 print(content)
