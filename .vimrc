@@ -192,6 +192,7 @@ noremap <C-k> <C-w>k "跳转到上边的窗口
 noremap <C-l> <C-w>l "跳转到右边的窗口
 noremap <C-up> <C-w>t "跳转到最顶上的窗口
 noremap <C-down> <C-w>b "跳转到最底下的窗口
+nnoremap <C-w>0 :only<CR>
 
 "横变竖，竖变横
 noremap sv <C-w>t<C-w>H "横变竖
