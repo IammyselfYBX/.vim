@@ -63,15 +63,23 @@ inoremap <silent><expr> <c-o> coc#refresh()
 "
 " inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 
+
 inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<Esc>:call BraceReturn()\<CR>"
+" pumvisible()是一个函数，用于检查是否有一个弹出菜单，
+" 如果可见(返回值非0)，执行 \<C-y> 这是一个控制字符，用于从自动完成菜单中选择当前高亮的条目。
+" 如果没有弹出菜单可见 (pumvisible() 返回0)，则执行 \<Esc>:call BraceReturn()\<CR>。
+
+
+"这个操作首先发送 Escape 键退出插入模式，然后调用 BraceReturn() 函数，最后按下 Enter 键执行该命令。
 function! BraceReturn()
-  let b:letters = strcharpart(getline('.')[col('.') - 1:], 0, 2)
+  let b:letters = strcharpart(getline('.')[col('.') - 1:], 0, 2)  " 这行代码获取当前光标位置后的两个字符。
   if b:letters == '{}' " 如果是一行的结尾是{}回车启用自动换行效果
     call feedkeys("li\<CR>\<Esc>ko", "n")
   else
-    call feedkeys("a\<CR>", "n")
+    call feedkeys("i\<CR>", "n")
   endif
 endfunction
+
 
 " inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<Esc>:call BraceReturn()\<CR>"
 " function! BraceReturn()
