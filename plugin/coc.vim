@@ -64,21 +64,34 @@ inoremap <silent><expr> <c-o> coc#refresh()
 " inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 
 
-inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<Esc>:call BraceReturn()\<CR>"
+
+"""" 已弃用
 " pumvisible()是一个函数，用于检查是否有一个弹出菜单，
 " 如果可见(返回值非0)，执行 \<C-y> 这是一个控制字符，用于从自动完成菜单中选择当前高亮的条目。
 " 如果没有弹出菜单可见 (pumvisible() 返回0)，则执行 \<Esc>:call BraceReturn()\<CR>。
+"inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<Esc>:call BraceReturn()\<CR>"
 
-
-"这个操作首先发送 Escape 键退出插入模式，然后调用 BraceReturn() 函数，最后按下 Enter 键执行该命令。
+" 以下函数的功能是
+" 1.检查弹窗 pumvisible() 如果有，就执行 <C-y>
+" 2.如果没有，就执行以下逻辑的函数BraceReturn()
+" 1)如果光标所在行结尾是{}，那么启动自动换行效果，即在{}中间回车，直接将{}展开并完成缩进
+" 例如for(int i=0; i<10; i++){} 在{}中间回车就变成
+" for(int i=0; i<10; i++){
+" // 光标最后停在这里
+" }
+" 2)如果光标所在行正常，那么就是正常的回车<CR>
 function! BraceReturn()
-  let b:letters = strcharpart(getline('.')[col('.') - 1:], 0, 2)  " 这行代码获取当前光标位置后的两个字符。
-  if b:letters == '{}' " 如果是一行的结尾是{}回车启用自动换行效果
-    call feedkeys("li\<CR>\<Esc>ko", "n")
-  else
-    call feedkeys("i\<CR>", "n")
-  endif
+    let line = getline('.') " 获取当前行的内容，并将其存储在变量 line 中。
+    let col = col('.')      " 获取当前光标所在列的位置，并将其存储在变量 col 中。
+    if line[col-1:] =~ '\s*}\s*$'
+        return "\<CR>\<ESC>O"
+    else
+        return "\<CR>"
+    endif
 endfunction
+
+inoremap <expr> <CR> pumvisible() ? "\<C-y>" : BraceReturn()
+
 
 
 " inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<Esc>:call BraceReturn()\<CR>"
