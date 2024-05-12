@@ -349,7 +349,7 @@ endif
 call plug#begin('~/.vim/plugged')
   " 获得vim-plug的帮助手册
   Plug 'junegunn/vim-plug' 
-  let g:plug_url_format='https://git::@hub.fastgit.org/%s.git' "更换国内github加速镜像
+  " let g:plug_url_format='https://git::@hub.fastgit.org/%s.git' "更换国内github加速镜像
   " let g:plug_url_format = 'git@github.com:%s.git' "设置为ssh协议访问
   
   " airline       ~/.vim/plugin/airline.vim
