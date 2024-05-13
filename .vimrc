@@ -414,6 +414,9 @@ call plug#begin('~/.vim/plugged')
 	" A Vim Plugin for Lively Previewing LaTeX PDF Output
   " ~/.vim/plugin/latex/vim-latex-live-preview.vim
 	Plug 'xuhdev/vim-latex-live-preview', { 'for': 'tex' }	" 用pdf软件实时预览latex文档的编写
+
+  " 调试
+  " Plug 'IammyselfYBX/termdebug'
   
   " Undo-tree     ~/.vim/plugin/undotree.vim
   Plug 'mbbill/undotree'
@@ -474,7 +477,7 @@ call plug#end()
 
         " Bash script
         " autocmd FileType sh nnoremap <buffer> <C-i> :!sh % <CR>
-        autocmd FileType python nnoremap <buffer> <C-r> :AsyncRun sh % <CR>
+        autocmd FileType sh nnoremap <buffer> <C-r> :AsyncRun sh % <CR>
 
         " Executable
         " nnoremap <buffer> <C-i> :!./% <CR>
@@ -509,13 +512,21 @@ map <F8> :call Rungdb()<CR>
 func! Rungdb()
     exec "w"
     if &filetype == 'c'
-            exec "!gcc % -g -o %<"
-            exec "!gdb -q ./%<"
+            "exec "!gcc % -g -o %<"
+            "exec "!gdb -q ./%<"
+            :AsyncRun gcc % -g -o %< && ./%<
+            :term gdb -q ./%<
     elseif &filetype == 'cpp'
-            exec "!g++ % -g -o %<"
-            exec "!gdb -q ./%<"
+            "exec "!g++ % -g -o %<"
+            "exec "!gdb -q ./%<"
+            :AsyncRun g++ % -g -o %< && ./%<
+            :term gdb -q ./%<
     elseif &filetype =='sh'
-            exec "!bash -x %"
+            "exec "!bash -x %"
+            :term bash -x %
+    elseif &filetype == 'python'
+            "exec "!python %"
+            :term python3 -m pdb %
     endif
 endfunc
 
