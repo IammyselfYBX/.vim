@@ -287,6 +287,12 @@ endif
 tnoremap <Esc> <C-\><C-N>
 tnoremap <C-V><Esc> <Esc>
 
+"禁用鼠标
+if has('nvim')
+    " 禁用鼠标
+    set mouse=
+    "set mouse=n "启用鼠标普通模式
+endif
 
 
 "====================================
