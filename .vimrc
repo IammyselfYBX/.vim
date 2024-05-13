@@ -515,12 +515,18 @@ func! Rungdb()
             "exec "!gcc % -g -o %<"
             "exec "!gdb -q ./%<"
             :AsyncRun gcc % -g -o %< && ./%<
-            :term gdb -q ./%<
+            :call asyncrun#quickfix_toggle(6)
+            ":term gdb -q ./%<
+            :packadd termdebug
+            :Termdebug ./%<
     elseif &filetype == 'cpp'
             "exec "!g++ % -g -o %<"
             "exec "!gdb -q ./%<"
             :AsyncRun g++ % -g -o %< && ./%<
-            :term gdb -q ./%<
+            :call asyncrun#quickfix_toggle(6)
+            ":term gdb -q ./%<
+            :packadd termdebug
+            :Termdebug ./%<
     elseif &filetype =='sh'
             "exec "!bash -x %"
             :term bash -x %
