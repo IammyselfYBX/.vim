@@ -549,20 +549,57 @@ function! CompileProject()
 endfunction
 
 "运行可执行文件
+" 根据文件名判断可执行文件
+"function! RunExecutable()
+"    let file_name = expand('%:t:r')  " 获取当前文件的基本名（不含扩展名）
+"    let root_dir_make = FindRootDir('Makefile')
+"    let root_dir_cmake = FindRootDir('CMakeLists.txt')
+"
+"    if root_dir_make != '/' && filereadable(root_dir_make . '/Makefile')
+"        execute 'AsyncRun -cwd=' . root_dir_make . ' ./' . file_name
+"    elseif root_dir_cmake != '/' && filereadable(root_dir_cmake . '/CMakeLists.txt')
+"        let build_dir = root_dir_cmake . '/build'
+"        execute 'AsyncRun -cwd=' . build_dir . ' ./' . file_name
+"    else
+"        execute 'AsyncRun ./%<'
+"    endif
+"endfunction
+
+"根据文件属性判断可执行文件
+" 辅助 RunExecutable 函数，我们需要一个新的函数来在指定目录中找到第一个可执行文件：
+function! FindExecutable(dir)
+    let files = split(glob(a:dir . '/*'), '\n')
+    for file in files
+        if executable(file)
+            return fnamemodify(file, ':t')
+        endif
+    endfor
+    return ''
+endfunction
+
 function! RunExecutable()
-    let file_name = expand('%:t:r')  " 获取当前文件的基本名（不含扩展名）
     let root_dir_make = FindRootDir('Makefile')
     let root_dir_cmake = FindRootDir('CMakeLists.txt')
 
     if root_dir_make != '/' && filereadable(root_dir_make . '/Makefile')
-        execute 'AsyncRun -cwd=' . root_dir_make . ' ./' . file_name
+        let executable_path = FindExecutable(root_dir_make)
+        if executable_path != ''
+            execute 'AsyncRun -cwd=' . root_dir_make . ' ./' . executable_path
+        endif
     elseif root_dir_cmake != '/' && filereadable(root_dir_cmake . '/CMakeLists.txt')
         let build_dir = root_dir_cmake . '/build'
-        execute 'AsyncRun -cwd=' . build_dir . ' ./' . file_name
+        let executable_path = FindExecutable(build_dir)
+        if executable_path != ''
+            execute 'AsyncRun -cwd=' . build_dir . ' ./' . executable_path
+        endif
     else
-        execute 'AsyncRun ./%<'
+        let executable_path = FindExecutable(getcwd())
+        if executable_path != ''
+            execute 'AsyncRun ./' . executable_path
+        endif
     endif
 endfunction
+
 
 "---------------------------------------------------
 " gdb调试
