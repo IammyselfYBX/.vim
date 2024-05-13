@@ -2,6 +2,7 @@
 "https://github.com/junegunn/fzf
 nnoremap <C-f> :FZF<CR>
 nnoremap <C-b> :Buffers<CR>
+nnoremap <Leader>h :History<CR>
 " This is the default option:
 "   - Preview window on the right with 50% width
 "   - CTRL-/ will toggle preview window.
