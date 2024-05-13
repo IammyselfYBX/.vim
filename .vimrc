@@ -193,6 +193,7 @@ noremap <C-l> <C-w>l "跳转到右边的窗口
 noremap <C-up> <C-w>t "跳转到最顶上的窗口
 noremap <C-down> <C-w>b "跳转到最底下的窗口
 nnoremap <C-w>0 :only<CR>
+"<C-w>= "两个窗口宽度相等
 
 "横变竖，竖变横
 noremap sv <C-w>t<C-w>H "横变竖
@@ -281,6 +282,10 @@ else
   " This is Vim
   noremap <LEADER>t :set splitbelow<CR>:term<CR>
 endif
+
+" 执行ESC退出终端
+tnoremap <Esc> <C-\><C-N>
+tnoremap <C-V><Esc> <Esc>
 
 
 
