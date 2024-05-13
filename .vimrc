@@ -343,6 +343,15 @@ filetype plugin on
 
 
 
+"=============================
+" 查找包含指定标识文件或目录的最顶层父目录
+function! FindRootDir(marker)
+    let l:current_dir = expand('%:p:h')
+    while l:current_dir != '/' && !filereadable(l:current_dir . '/' . a:marker) && !isdirectory(l:current_dir . '/' . a:marker)
+        let l:current_dir = fnamemodify(l:current_dir, ':h')
+    endwhile
+    return l:current_dir
+endfunction
 
 "================================================================================================================
 "========================================== 插件管理 ============================================================
@@ -463,13 +472,17 @@ call plug#end()
         "autocmd FileType c nnoremap <buffer> <C-c> :!gcc % -o %< && ./%< <CR>
         autocmd FileType c nnoremap <buffer> <C-c> :AsyncRun gcc -Wall % -o %< <CR>
         "autocmd FileType c nnoremap <buffer> <C-r> :! ./%< <CR>
-        autocmd FileType c nnoremap <buffer> <C-r> :AsyncRun ./%< <CR>
+        "autocmd FileType c nnoremap <buffer> <C-r> :AsyncRun ./%< <CR>
+        autocmd FileType c nnoremap <buffer> <C-r> :call RunExecutable()<CR>
+        autocmd FileType c nnoremap <buffer> <C-p> :call CompileProject()<CR>
 
         " C++ Compiler
         au BufRead,BufNewFile *.h set filetype=cpp "有时.h文件默认时C的,引入C++的头文件ALE会报错
         "autocmd FileType cpp nnoremap <buffer> <C-i> :!g++ % -o %< && ./%:r <CR>
         autocmd FileType cpp nnoremap <buffer> <C-c> :AsyncRun g++ % -o %< <CR>
-        autocmd FileType cpp nnoremap <buffer> <C-r> :AsyncRun ./%:r <CR>
+        "autocmd FileType cpp nnoremap <buffer> <C-r> :AsyncRun ./%:r <CR>
+        autocmd FileType cpp nnoremap <buffer> <C-r> :call RunExecutable()<CR>
+        autocmd FileType cpp nnoremap <buffer> <C-p> :call CompileProject()<CR>
 
         " Python Interpreter
         " autocmd FileType python nnoremap <buffer> <C-i> :!python % <CR>
@@ -500,9 +513,56 @@ call plug#end()
         autocmd Filetype markdown source ~/.vim/UltiSnips/markdown.vim
 
         " Latex 
-        autocmd Filetype tex nnoremap <buffer> <C-c> :AsyncRun latexmk <cr>
-        autocmd Filetype tex nnoremap <buffer> <C-r> :LLPStartPreview<cr>
+        "autocmd Filetype tex nnoremap <buffer> <C-c> :AsyncRun latexmk <cr>
+        "autocmd Filetype tex nnoremap <buffer> <C-r> :LLPStartPreview<cr>
+        autocmd FileType tex nnoremap <buffer> <C-c> :AsyncLatex <CR>
 
+
+"项目编译函数
+"在项目根目录执行 LaTeX 编译命令
+autocmd FileType tex command! AsyncLatex call AsyncRunLatex()
+function! AsyncRunLatex()
+    let root_dir = FindRootDir('main.tex')
+    if root_dir != '/'
+        execute 'AsyncRun -cwd=' . root_dir . ' latexmk -f main.tex'
+    else
+        echo "Latex项目根目录必须有main.tex文件"
+    endif
+endfunction
+ 
+"在项目根目录执行编译命令
+function! CompileProject()
+    let root_dir_make = FindRootDir('Makefile')
+    let root_dir_cmake = FindRootDir('CMakeLists.txt')
+
+    if root_dir_make != '/' && filereadable(root_dir_make . '/Makefile')
+        execute 'AsyncRun -cwd=' . root_dir_make . ' make'
+    elseif root_dir_cmake != '/' && filereadable(root_dir_cmake . '/CMakeLists.txt')
+        let build_dir = root_dir_cmake . '/build'
+        if !isdirectory(build_dir)
+            call mkdir(build_dir)
+        endif
+        execute 'AsyncRun -cwd=' . build_dir . ' cmake .. && make'
+    else
+        echo "No Makefile or CMakeLists.txt found in any parent directory."
+    endif
+endfunction
+
+"运行可执行文件
+function! RunExecutable()
+    let file_name = expand('%:t:r')  " 获取当前文件的基本名（不含扩展名）
+    let root_dir_make = FindRootDir('Makefile')
+    let root_dir_cmake = FindRootDir('CMakeLists.txt')
+
+    if root_dir_make != '/' && filereadable(root_dir_make . '/Makefile')
+        execute 'AsyncRun -cwd=' . root_dir_make . ' ./' . file_name
+    elseif root_dir_cmake != '/' && filereadable(root_dir_cmake . '/CMakeLists.txt')
+        let build_dir = root_dir_cmake . '/build'
+        execute 'AsyncRun -cwd=' . build_dir . ' ./' . file_name
+    else
+        execute 'AsyncRun ./%<'
+    endif
+endfunction
 
 "---------------------------------------------------
 " gdb调试
