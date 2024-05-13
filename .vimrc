@@ -601,40 +601,41 @@ function! RunExecutable()
     endif
 endfunction
 
-function! CheckConda()
-    " 检查是否存在conda命令
+" python的执行
+" 检查 Conda 是否安装并列出环境
+function! CheckAndListCondaEnvs()
     if executable('conda')
         let g:has_conda = 1
+        let envs = system("conda env list | awk '{if(NR>2) print NR-2 \": \" $1}'")
+        let g:conda_envs = split(envs, "\n")
     else
         let g:has_conda = 0
         echo "Conda is not installed. Consider installing it for better environment management."
     endif
 endfunction
 
+" 用户选择 Conda 环境
 function! SelectCondaEnv()
     if g:has_conda
-        " 获取conda环境列表
-        redir => l:envs
-        silent execute '!conda env list | grep -v "#" | awk "{print $1}"'
-        redir END
-        " 创建选择菜单
-        let l:env = inputlist(split(l:envs, '\n'))
-        if l:env != 0
-            let l:selected_env = split(l:envs, '\n')[l:env - 1]
-            return 'conda activate ' . l:selected_env . ' && python'
+        echo "Select a Conda environment by number:"
+        let idx = inputlist(['Select a Conda environment:'] + g:conda_envs)
+        if idx > 0 && idx <= len(g:conda_envs)
+            let selected_env = split(g:conda_envs[idx - 1], ": ")[1]
+            return 'conda run -n ' . selected_env . ' python3'
         else
-            return 'python'
+            return 'python3'
         endif
-    else
-        return 'python'
     endif
+    return 'python3'
 endfunction
 
+" 运行 Python 脚本
 function! RunPython()
-    call CheckConda()
-    let l:python_cmd = SelectCondaEnv()
-    execute 'AsyncRun ' . l:python_cmd . ' %'
+    call CheckAndListCondaEnvs()
+    let python_cmd = SelectCondaEnv()
+    execute 'AsyncRun ' . python_cmd . ' %'
 endfunction
+
 
 
 "---------------------------------------------------
