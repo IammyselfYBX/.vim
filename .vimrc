@@ -486,7 +486,8 @@ call plug#end()
 
         " Python Interpreter
         " autocmd FileType python nnoremap <buffer> <C-i> :!python % <CR>
-        autocmd FileType python nnoremap <buffer> <C-r> :AsyncRun python3 % <CR>
+        " autocmd FileType python nnoremap <buffer> <C-r> :AsyncRun python3 % <CR>
+        autocmd FileType python nnoremap <buffer> <C-r> :call RunPython()<CR>
 
         " Bash script
         " autocmd FileType sh nnoremap <buffer> <C-i> :!sh % <CR>
@@ -598,6 +599,41 @@ function! RunExecutable()
             execute 'AsyncRun ./' . executable_path
         endif
     endif
+endfunction
+
+function! CheckConda()
+    " 检查是否存在conda命令
+    if executable('conda')
+        let g:has_conda = 1
+    else
+        let g:has_conda = 0
+        echo "Conda is not installed. Consider installing it for better environment management."
+    endif
+endfunction
+
+function! SelectCondaEnv()
+    if g:has_conda
+        " 获取conda环境列表
+        redir => l:envs
+        silent execute '!conda env list | grep -v "#" | awk "{print $1}"'
+        redir END
+        " 创建选择菜单
+        let l:env = inputlist(split(l:envs, '\n'))
+        if l:env != 0
+            let l:selected_env = split(l:envs, '\n')[l:env - 1]
+            return 'conda activate ' . l:selected_env . ' && python'
+        else
+            return 'python'
+        endif
+    else
+        return 'python'
+    endif
+endfunction
+
+function! RunPython()
+    call CheckConda()
+    let l:python_cmd = SelectCondaEnv()
+    execute 'AsyncRun ' . l:python_cmd . ' %'
 endfunction
 
 
