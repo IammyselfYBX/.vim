@@ -606,7 +606,8 @@ endfunction
 function! CheckAndListCondaEnvs()
     if executable('conda')
         let g:has_conda = 1
-        let envs = system("conda env list | awk '{if(NR>2) print NR-2 \": \" $1}'")
+        "let envs = system("conda env list | awk '{if(NR>2) print NR-2 \": \" $1}'")
+        let envs = system("conda env list | grep -v '^\\s*$' | awk 'NR > 2 {print NR-2 \": \" $1}'") "去掉空行
         let g:conda_envs = split(envs, "\n")
     else
         let g:has_conda = 0
