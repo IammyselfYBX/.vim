@@ -20,7 +20,7 @@ source ~/.vim/vimconfigs/file-setup.vim
 " 分屏
 source ~/.vim/vimconfigs/split-screen.vim
 
-" 个性化设置
+" 其余不能归类的个性化设置
 source ~/.vim/vimconfigs/customize.vim
 
 " 模拟终端
@@ -31,7 +31,7 @@ source ~/.vim/vimconfigs/plugins.vim
 
 " 编程
 "" 程序编译与运行
-source ~/.vim/vimconfigs/compile.vim
+source ~/.vim/vimconfigs/compile-run.vim
 
 "" 程序的调试
 source ~/.vim/vimconfigs/debug.vim
