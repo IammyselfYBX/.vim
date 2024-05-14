@@ -71,6 +71,7 @@ inoremap <silent><expr> <c-o> coc#refresh()
 " 如果没有弹出菜单可见 (pumvisible() 返回0)，则执行 \<Esc>:call BraceReturn()\<CR>。
 "inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<Esc>:call BraceReturn()\<CR>"
 
+" 重新定义 <CR> 的多重行为
 " 以下函数的功能是
 " 1.检查弹窗 pumvisible() 如果有，就执行 <C-y>
 " 2.如果没有，就执行以下逻辑的函数BraceReturn()
@@ -147,6 +148,19 @@ nmap <silent> <LEADER><up>  <Plug>(coc-diagnostic-prev)
 nmap <silent> <LEADER><down> <Plug>(coc-diagnostic-next)
 
 " GoTo code navigation.
+"   coc-definition (gd):
+"   跳转到符号的定义处。
+"   例如，对于一个函数调用，此命令会跳转到函数的定义位置。
+"   coc-type-definition (gy):
+"   跳转到类型定义。
+"   对于变量或实例，此命令通常跳转到它的类型声明。
+"   coc-implementation (gi): 
+"   跳转到一个接口的所有实现。
+"   对于面向对象的编程语言特别有用，当你跳到一个接口或抽象类的方法时，可以找到所有实现了该接口或继承了该抽象类的具体类中的方法实现。
+"    coc-references (gr):
+"    查找所有引用该符号的地方。
+"    比如你想看一个函数在哪些地方被调用，或者一个变量被在哪些地方使用。
+
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
@@ -164,24 +178,39 @@ function! s:show_documentation()
 endfunction
 
 " coc-snippets
-"" Use <C-l> for trigger snippet expand.
-imap <tab> <Plug>(coc-snippets-expand)
-"" Use <tab> for select text for visual placeholder of snippet.
+"" <TAB> 触发代码片段展开
+"" imap <tab> <Plug>(coc-snippets-expand) 
+"" 把snippets加入到coc补全，可以不需要
+"" <tab> 在可视模式下，选择一个代码片段的可视占位符。
 vmap <tab> <Plug>(coc-snippets-select)
-"" Use <tab> for jump to next placeholder, it's default of coc.nvim
+"" <tab> 跳转到下一个占位符,这是coc.nvim默认的
 let g:coc_snippet_next = '<tab>'
-"" Use <S-tab> for jump to previous placeholder, it's default of coc.nvim
+"" <S-tab> 跳转到上一个占位符，这里coc.nvim默认的
 let g:coc_snippet_prev = '<S-tab>'
-"" Use <C-j> for both expand and jump (make expand higher priority.)
+"" <C-j> 展开代码片段也可以跳转到下一个占位符 
 imap <C-j> <Plug>(coc-snippets-expand-jump)
-"" Use <leader>x for convert visual selected code to snippet
-xmap <leader>x  <Plug>(coc-convert-snippet)
-inoremap <silent><expr> <TAB>
-      \ coc#pum#visible() ? coc#_select_confirm() :
-      \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
-      \ CheckBackspace() ? "\<TAB>" :
-      \ coc#refresh()
+"" <leader>x 在可视模式下，使用 <leader>x 将选中的代码转换为一个新的代码片段。
+"" 存放路径 ~/.config/coc/ultisnips/c
+"" xmap <leader>x  <Plug>(coc-convert-snippet)
+"" 因为单独 设置了 YBXUltiSnips 文件夹单独存放snippets
 
+" 重新定义在i模式下的<TAB>多重行为
+" inoremap <silent><expr> <TAB>
+"       " 自动完成菜单可见，则用 <TAB> 选择当前高亮的条目
+"       \ coc#pum#visible() ? coc#_select_confirm() : 
+"       " 如果当前位置可以展开或跳转片段，则执行这些操作。
+"       " \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
+"       " 已经用 <CR> 展开胡哦跳转片段
+"       \ CheckBackspace() ? "\<TAB>" : " 如果光标前是空白字符（由 CheckBackspace 函数检查），则插入一个普通的 <TAB>
+"       \ coc#refresh() " 刷新自动完成建议
+inoremap <silent><expr> <TAB>
+      \ coc#pum#visible() ? coc#_select_confirm() : 
+      \ CheckBackspace() ? "\<TAB>" :
+      \ coc#refresh() 
+
+" CheckBackspace 函数
+" 这个函数用于检查光标前是否为空白，是条件性 <Tab> 行为中的一部分。
+" 它检查光标前的字符是否是空白，并据此决定是否应该触发默认的 <Tab> 行为。
 function! CheckBackspace() abort
   let col = col('.') - 1
   return !col || getline('.')[col - 1]  =~# '\s'
