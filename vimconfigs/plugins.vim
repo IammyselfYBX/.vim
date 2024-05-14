@@ -1,5 +1,5 @@
 " 用于管理插件
-" 如果像以后一直到其他系统直接下载vim-plug
+" 如果以后一直到其他系统直接下载vim-plug
 if empty(glob('~/.vim/autoload/plug.vim'))
     silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
     autocmd VimEnter * PlugInstall --sync |  source $MYVIMRC
@@ -13,7 +13,7 @@ call plug#begin('~/.vim/plugged')
   " let g:plug_url_format='https://git::@hub.fastgit.org/%s.git' "更换国内github加速镜像
   " let g:plug_url_format = 'git@github.com:%s.git' "设置为ssh协议访问
   
-  " airline       ~/.vim/plugin/airline.vim
+  " airline  ~/.vim/plugin/airline.vim
 	Plug 'vim-airline/vim-airline'
 
 	"nertree ~/.vim/plugin/nerdtree/nerdtree.vim
@@ -37,6 +37,20 @@ call plug#begin('~/.vim/plugged')
   " $> pacman -S nodejs yarn
   Plug 'neoclide/coc.nvim', {'branch': 'release'}
   Plug 'yelled1/coc-python', {'do': 'yarn install --frozen-lockfile', 'for': 'python'}
+    "======================================
+    "    COC.nvim
+    "======================================
+    " <C-o>          调出补全信息
+    " <LEADER>up   跳转到上一个报错代码
+    " <LEADER>down 跳转到下一个报错代码
+    " gd           跳转到变量或函数定义(definition)的位置
+    " gy           跳转到类型或实例定义(type-definition)的位置
+    " gi           跳转到接口(implementation)的所有实现
+    " gr           跳转到引用(references)常量或函数的位置
+    " <C-h>        显示帮助文档，该变量/函数是干什么用的
+    " <TAB>        跳转到下一个代码补齐位置
+    " <S-TAB>      跳转到上一个代码补齐位置
+    " <C-j>        展开代码片段也可以跳转到下一个占位符
 
   " fzf ~/.vim/plugin/fzf.vim
   Plug 'junegunn/fzf'
@@ -59,7 +73,6 @@ call plug#begin('~/.vim/plugged')
   " 加上 'for': ['markdown', 'vim-plug']} 就是只有加载markdown的时候,才加载这个插件,这样启动会快一些
   " vim-table-mode
   Plug 'dhruvasagar/vim-table-mode', { 'do': { -> mkdp#util#install() }, 'for': 'markdown'}
-
     "=================vim-table-mode----------
     " 使用说明
     " <C-\> 开启/关闭
@@ -78,25 +91,13 @@ call plug#begin('~/.vim/plugged')
   " 调试
   " Plug 'IammyselfYBX/termdebug'
   
-  " Undo-tree     ~/.vim/plugin/undotree.vim
+  " Undo-tree ~/.vim/plugin/undotree.vim
   Plug 'mbbill/undotree'
   
   "github copilot ~/.vim/plugin/github-copilot.vim
   Plug 'github/copilot.vim'
 
 call plug#end()
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
