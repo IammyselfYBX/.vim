@@ -204,9 +204,9 @@ imap <C-j> <Plug>(coc-snippets-expand-jump)
 "       \ CheckBackspace() ? "\<TAB>" : " 如果光标前是空白字符（由 CheckBackspace 函数检查），则插入一个普通的 <TAB>
 "       \ coc#refresh() " 刷新自动完成建议
 inoremap <silent><expr> <TAB>
-      \ coc#pum#visible() ? coc#_select_confirm() : 
       \ CheckBackspace() ? "\<TAB>" :
       \ coc#refresh() 
+    
 
 " CheckBackspace 函数
 " 这个函数用于检查光标前是否为空白，是条件性 <Tab> 行为中的一部分。
