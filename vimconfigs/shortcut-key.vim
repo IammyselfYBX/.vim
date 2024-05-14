@@ -34,6 +34,14 @@ inoremap <C-s> <ESC>:w<CR>a
 vnoremap <C-x> d
 cnoremap w!! w !sudo tee %
 
+" <TAB> 键
+" 可见 ~/.vim/plugin/coc.vim 
+" 重新定义在i模式下的<TAB>多重行为
+
+" <CR> 键
+" 可见 ~/.vim/plugin/coc.vim 
+" 重新定义在i模式下的<CR>多重行为
+
 
 " <C-d> 剪切当前行
 inoremap <C-d> <ESC>ddi
