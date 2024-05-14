@@ -31,7 +31,7 @@ endif
 "
 "
 "set fdm=indent
-set foldmethod=indent "代码折叠
+"set foldmethod=indent "代码折叠
 autocmd BufRead * normal zR " 默认打开新文件折叠全部打开
 " zc  折叠
 " zC  对所在范围内所有嵌套的折叠点进行折叠
