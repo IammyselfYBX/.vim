@@ -45,7 +45,7 @@ autocmd Filetype html nnoremap <buffer> <C-i> :!firefox % &<CR>
 
 " Markdown 前提是已经安装MarkdownPreview插件
 autocmd Filetype markdown nnoremap <buffer> <C-r> :MarkdownPreview <CR>
-autocmd Filetype markdown source ~/.vim/UltiSnips/markdown.vim
+"autocmd Filetype markdown source ~/.vim/UltiSnips/markdown.vim
 
 " Latex 
 "autocmd Filetype tex nnoremap <buffer> <C-c> :AsyncRun latexmk <cr>
