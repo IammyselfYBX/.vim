@@ -33,12 +33,14 @@ call plug#begin('~/.vim/plugged')
   "ale 代码检验   ~/.vim/plugin/ale.vim
 	Plug 'dense-analysis/ale'	
 
-  "coc ~/.vim/plugin/coc.vim
-  " $> pacman -S nodejs yarn
   Plug 'neoclide/coc.nvim', {'branch': 'release'}
   Plug 'yelled1/coc-python', {'do': 'yarn install --frozen-lockfile', 'for': 'python'}
     "======================================
     "    COC.nvim
+    "======================================
+    " 1.配置文件: ~/.vim/plugin/coc.vim
+    " 2.安装依赖
+    "   pacman -S nodejs yarn
     "======================================
     " <C-o>          调出补全信息
     " <LEADER>up   跳转到上一个报错代码
@@ -64,19 +66,28 @@ call plug#begin('~/.vim/plugged')
 	Plug 'honza/vim-snippets' "代码小片段
   let g:python3_host_prog = "/usr/bin/python3"
 
-  """ markdown 
-  " Markdown Preview for (Neo)vim ~/.vim/plugin/markdown/markdown-preview-for-vim.vim 
-  " 需要预览数学公式需要安装iamcco/mathjax-support-for-mkdp
-	Plug 'iamcco/mathjax-support-for-mkdp', { 'for': 'markdown' } 
-  Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': 'markdown'}	 
-	"Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}	 
-  " 加上 'for': ['markdown', 'vim-plug']} 就是只有加载markdown的时候,才加载这个插件,这样启动会快一些
-  " vim-table-mode
-  Plug 'dhruvasagar/vim-table-mode', { 'do': { -> mkdp#util#install() }, 'for': 'markdown'}
-    "=================vim-table-mode----------
-    " 使用说明
-    " <C-\> 开启/关闭
-    " 1. '[|', ']|', '{|' '}|' 分别表示移动向 left | right | up | down 
+  " markdown 
+  "" Markdown Preview for (Neo)vim ~/.vim/plugin/markdown/markdown-preview-for-vim.vim 
+  "" 需要预览数学公式需要安装 iamcco/mathjax-support-for-mkdp
+	""""""Plug 'iamcco/mathjax-support-for-mkdp', { 'for': 'markdown' } 
+  "Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': 'markdown'}	 
+  """"""Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && npx --yes yarn install' }
+	"" Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}	 
+  "" 加上 'for': ['markdown', 'vim-plug']} 就是只有加载markdown的时候,才加载这个插件,这样启动会快一些
+  "" 使用事项：
+  ""       1.到 ~/.vim/plugin/markdown/markdown-preview-for-vim.vim
+  ""         修改 mkdp_browser 参数为系统默认的浏览器(默认chromium)
+  ""          sudo apt install chromium-browser
+  
+  """"""Plug 'dhruvasagar/vim-table-mode', { 'do': { -> mkdp#util#install() }, 'for': 'markdown'}
+    "======================================
+    "     vim-table-mode
+    "======================================
+    " 1.配置文件 ~/.vim/plugin/markdown/vim-table-mode.vim
+    " 
+    "======================================
+    " <C-\>   开启/关闭 vim-table-mode
+    " 1h'[|', ']|', '{|' '}|' 分别表示移动向 left | right | up | down 
     " 2. i| 表示向前插入一个格
     "    a| 表示向后插入一个格
     " 3.<Leader>tdd 删除当前行
@@ -86,7 +97,8 @@ call plug#begin('~/.vim/plugged')
 
 	" A Vim Plugin for Lively Previewing LaTeX PDF Output
   " ~/.vim/plugin/latex/vim-latex-live-preview.vim
-	Plug 'xuhdev/vim-latex-live-preview', { 'for': 'tex' }	" 用pdf软件实时预览latex文档的编写
+  " 暂时不用，如果需要用的话要到 ~/.vim/plugin/latex/vim-latex-live-preview.vim 文件中修改livepreview_engine
+	" Plug 'xuhdev/vim-latex-live-preview', { 'for': 'tex' }	" 用pdf软件实时预览latex文档的编写
 
   " 调试
   " Plug 'IammyselfYBX/termdebug'
