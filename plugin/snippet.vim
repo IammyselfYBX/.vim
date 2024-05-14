@@ -8,6 +8,6 @@
 "let g:UltiSnipsJumpForwardTrigger = "<c-j>"   "<C-j>切换下一个
 "let g:UltiSnipsJumpBackwardTrigger = "<c-k>"  "<C-k>切换上一个
 "自定义snippet 的代码片段在哪里寻找
-let g:UltiSnipsSnippetDirectories=[$HOME."/.vim/YBXUltiSnips"]
+"let g:UltiSnipsSnippetDirectories=[$HOME."/.vim/YBXUltiSnips"]
 "let g:UltiSnipsSnippetDirectories = [$HOME."/.vim/plugged/vim-snippets/snippets", ".vim/UltiSnips"]
 
