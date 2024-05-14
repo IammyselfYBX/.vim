@@ -10,6 +10,9 @@ function! ClearSwapdir()
 
     " 主循环，直到用户选择退出
     while 1
+        " 清除屏幕并重新绘制
+        redraw!
+
         " 获取目录下所有 swap 文件
         let swapfiles = glob(swapdir . '/*', 0, 1)
         if empty(swapfiles)
