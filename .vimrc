@@ -22,6 +22,7 @@ source ~/.vim/vimconfigs/split-screen.vim
 
 " 其余不能归类的个性化设置
 source ~/.vim/vimconfigs/customize.vim
+source ~/.vim/vimconfigs/my-function.vim
 
 " 模拟终端
 source ~/.vim/vimconfigs/terminal-emulator.vim
