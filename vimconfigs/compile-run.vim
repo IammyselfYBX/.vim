@@ -2,26 +2,54 @@
 "-----------------------------------------------------------------------------
 " Vim的autocmd FileType 判断语言类型，<C-c>来进行编译 <C-i>运行
 "-----------------------------------------------------------------------------
-" C Compiler:
-"autocmd FileType c nnoremap <buffer> <C-c> :!gcc % -o %< && ./%< <CR>
-autocmd FileType c nnoremap <buffer> <C-c> :AsyncRun gcc -Wall % -o %< <CR>
-"autocmd FileType c nnoremap <buffer> <C-r> :! ./%< <CR>
-"autocmd FileType c nnoremap <buffer> <C-r> :AsyncRun ./%< <CR>
-autocmd FileType c nnoremap <buffer> <C-r> :call RunExecutable()<CR>
-autocmd FileType c nnoremap <buffer> <C-p> :call CompileProject()<CR>
 
-" C++ Compiler
-au BufRead,BufNewFile *.h set filetype=cpp "有时.h文件默认时C的,引入C++的头文件ALE会报错
-"autocmd FileType cpp nnoremap <buffer> <C-i> :!g++ % -o %< && ./%:r <CR>
-autocmd FileType cpp nnoremap <buffer> <C-c> :AsyncRun g++ % -o %< <CR>
-"autocmd FileType cpp nnoremap <buffer> <C-r> :AsyncRun ./%:r <CR>
-autocmd FileType cpp nnoremap <buffer> <C-r> :call RunExecutable()<CR>
-autocmd FileType cpp nnoremap <buffer> <C-p> :call CompileProject()<CR>
+if g:is_linux
+    
+    " C Compiler:
+    "autocmd FileType c nnoremap <buffer> <C-c> :!gcc % -o %< && ./%< <CR>
+    autocmd FileType c nnoremap <buffer> <C-c> :AsyncRun gcc -Wall % -o %< <CR>
+    "autocmd FileType c nnoremap <buffer> <C-r> :! ./%< <CR>
+    "autocmd FileType c nnoremap <buffer> <C-r> :AsyncRun ./%< <CR>
+    autocmd FileType c nnoremap <buffer> <C-r> :call RunExecutable()<CR>
+    autocmd FileType c nnoremap <buffer> <C-p> :call CompileProject()<CR>
+    
+    
+    " C++ Compiler
+    au BufRead,BufNewFile *.h set filetype=cpp "有时.h文件默认时C的,引入C++的头文件ALE会报错
+    "autocmd FileType cpp nnoremap <buffer> <C-i> :!g++ % -o %< && ./%:r <CR>
+    autocmd FileType cpp nnoremap <buffer> <C-c> :AsyncRun g++ % -o %< <CR>
+    "autocmd FileType cpp nnoremap <buffer> <C-r> :AsyncRun ./%:r <CR>
+    autocmd FileType cpp nnoremap <buffer> <C-r> :call RunExecutable()<CR>
+    autocmd FileType cpp nnoremap <buffer> <C-p> :call CompileProject()<CR>
+    
+    " Python Interpreter
+    " autocmd FileType python nnoremap <buffer> <C-i> :!python % <CR>
+    " autocmd FileType python nnoremap <buffer> <C-r> :AsyncRun python3 % <CR>
+    autocmd FileType python nnoremap <buffer> <C-r> :call RunPython()<CR>
 
-" Python Interpreter
-" autocmd FileType python nnoremap <buffer> <C-i> :!python % <CR>
-" autocmd FileType python nnoremap <buffer> <C-r> :AsyncRun python3 % <CR>
-autocmd FileType python nnoremap <buffer> <C-r> :call RunPython()<CR>
+elseif g:is_mac
+    " C Compiler:
+    "autocmd FileType c nnoremap <buffer> <C-c> :!gcc % -o %< && ./%< <CR>
+    autocmd FileType c nnoremap <buffer> <C-c> :AsyncRun gcc -Wall % -o %< <CR>
+    "autocmd FileType c nnoremap <buffer> <C-r> :! ./%< <CR>
+    "autocmd FileType c nnoremap <buffer> <C-r> :AsyncRun ./%< <CR>
+    autocmd FileType c nnoremap <buffer> <C-r> :call RunExecutable()<CR>
+    autocmd FileType c nnoremap <buffer> <C-p> :call CompileProject()<CR>
+    
+    
+    " C++ Compiler
+    au BufRead,BufNewFile *.h set filetype=cpp "有时.h文件默认时C的,引入C++的头文件ALE会报错
+    "autocmd FileType cpp nnoremap <buffer> <C-i> :!g++ % -o %< && ./%:r <CR>
+    autocmd FileType cpp nnoremap <buffer> <C-c> :AsyncRun g++ % -o %< <CR>
+    "autocmd FileType cpp nnoremap <buffer> <C-r> :AsyncRun ./%:r <CR>
+    autocmd FileType cpp nnoremap <buffer> <C-r> :call RunExecutable()<CR>
+    autocmd FileType cpp nnoremap <buffer> <C-p> :call CompileProject()<CR>
+    
+    " Python Interpreter
+    " autocmd FileType python nnoremap <buffer> <C-i> :!python % <CR>
+    " autocmd FileType python nnoremap <buffer> <C-r> :AsyncRun python3 % <CR>
+    autocmd FileType python nnoremap <buffer> <C-r> :call RunPython()<CR>
+endif    
 
 " Bash script
 " autocmd FileType sh nnoremap <buffer> <C-i> :!sh % <CR>
