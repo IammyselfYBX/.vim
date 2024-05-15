@@ -1,5 +1,8 @@
 " 个性化设置
-
+" 判断操作系统
+let g:is_mac = has('macunix')
+let g:is_linux = has('unix') && !has('macunix')
+let g:is_windows = has('win32') || has('win64')
 
 "------- 搜索 ----------
 set hlsearch "设置搜索高亮
