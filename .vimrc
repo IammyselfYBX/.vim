@@ -31,6 +31,9 @@ source ~/.vim/vimconfigs/terminal-emulator.vim
 source ~/.vim/vimconfigs/plugins.vim
 
 " 编程
+" 编程环境设置
+source ~/.vim/vimconfigs/programming-environment.vim
+
 "" 程序编译与运行
 source ~/.vim/vimconfigs/compile-run.vim
 
