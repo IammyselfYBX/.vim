@@ -28,6 +28,8 @@ call plug#begin('~/.vim/plugged')
   " 1.配置文件: ~/.vim/plugin/airline.vim
   "======================================
 
+  Plug 'IammyselfYBX/vim-rainbow'
+
   "======================================
   "      nertree
   "======================================
