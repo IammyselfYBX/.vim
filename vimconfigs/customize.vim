@@ -47,13 +47,7 @@ autocmd BufRead * normal zR " 默认打开新文件折叠全部打开
 "----------------------------------------------------
 " 符号匹配
 "----------------------------------------------------
-inoremap ( ()<Esc>i
-inoremap [ []<Esc>i
-inoremap < <><Esc>i
-inoremap { {}<Esc>i
-" inoremap ' ''<Esc>i
-" inoremap " ""<Esc>i
-" 实现当重复输入的时候自动跳过
+" 定义跳过功能
 function! JumpOver(char)
     if getline(".")[col(".")-1] == a:char
         return "\<Right>"
@@ -61,12 +55,40 @@ function! JumpOver(char)
         return a:char
     endif
 endfunction
+
+" 定义插入配对符号的功能
+function! InsertPair(open, close)
+    " 获取光标位置后的字符
+    let next_char = getline(".")[col(".") - 1]
+
+    " 判断光标后面的字符是否为空白符号
+		if next_char =~ '\s' || next_char == '' || next_char == a:close
+        return a:open . a:close . "\<Left>"
+    else
+        return a:open
+    endif
+endfunction
+
+" 在insert模式下自动跳过配对符号
 inoremap <expr> ) JumpOver(')')
 inoremap <expr> ] JumpOver(']')
-inoremap <expr> > JumpOver('>')
 inoremap <expr> } JumpOver('}')
-"inoremap <expr> ' JumpOver('\'')
-"inoremap <expr> " JumpOver('"')
+inoremap <expr> > JumpOver('>')
+
+" 插入配对符号的映射
+inoremap <expr> ( InsertPair('(', ')')
+inoremap <expr> [ InsertPair('[', ']')
+inoremap <expr> { InsertPair('{', '}')
+inoremap <expr> ' InsertPair("'", "'")
+inoremap <expr> " InsertPair('"', '"')
+
+" 根据文件类型设置不同的映射
+augroup FileTypeSettings
+    autocmd!
+    autocmd FileType html inoremap <expr> < InsertPair('<', '>')
+    autocmd FileType * if &filetype != 'html' | inoremap < < | endif
+augroup END
+
 
 
 "======== 新建tab ===================
