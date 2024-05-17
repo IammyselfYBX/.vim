@@ -33,6 +33,7 @@ call plug#begin('~/.vim/plugged')
   "======================================
   Plug 'IammyselfYBX/vim-rainbow'
   "======================================
+	"vim-rainbow ~/.vim/plugin/vim-rainbow.vim
   " :RainbowToggle  打开/关闭 Rainbow 插件
   " :RainbowLoad    加载/重新加载 Rainbow 插件
 
