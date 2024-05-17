@@ -61,8 +61,8 @@ function! InsertPair(open, close)
     " 获取光标位置后的字符
     let next_char = getline(".")[col(".") - 1]
 
-    " 判断光标后面的字符是否为空白符号
-		if next_char =~ '\s' || next_char == '' || next_char == a:close
+    " 判断光标后面的字符是否为空白符号或待匹配字符
+    if next_char =~ '\s' || next_char == '' || next_char == a:close || next_char == '>' || next_char == ')' || next_char == ']' || next_char == '}' || next_char == '"' || next_char == "'" 
         return a:open . a:close . "\<Left>"
     else
         return a:open
@@ -83,11 +83,19 @@ inoremap <expr> ' InsertPair("'", "'")
 inoremap <expr> " InsertPair('"', '"')
 
 " 删除配对符号的功能
-function! DeletePair(open, close)
+function! DeletePair()
     let line = getline(".")
     let col = col(".")
+    " 获取光标前后字符
+    let prev_char = col > 1 ? line[col - 2] : ''
+    let next_char = col <= len(line) ? line[col - 1] : ''
+
     " 判断当前字符是否为配对符号之一
-    if col > 1 && col <= len(line) && line[col - 2] == a:open && line[col - 1] == a:close
+    if (prev_char == '(' && next_char == ')') ||
+        \ (prev_char == '[' && next_char == ']') ||
+        \ (prev_char == '{' && next_char == '}') ||
+        \ (prev_char == '"' && next_char == '"') ||
+        \ (prev_char == "'" && next_char == "'")
         return "\<BS>\<Del>"
     else
         return "\<BS>"
@@ -95,11 +103,7 @@ function! DeletePair(open, close)
 endfunction
 
 " 在insert模式下删除前一个符号时自动删除后一个符号
-inoremap <expr> <BS> DeletePair('(', ')')
-inoremap <expr> <BS> DeletePair('[', ']')
-inoremap <expr> <BS> DeletePair('{', '}')
-inoremap <expr> <BS> DeletePair("'", "'")
-inoremap <expr> <BS> DeletePair('"', '"')
+inoremap <expr> <BS> DeletePair()
 
 " 根据文件类型设置不同的映射
 augroup FileTypeSettings
@@ -107,7 +111,6 @@ augroup FileTypeSettings
     autocmd FileType html inoremap <expr> < InsertPair('<', '>')
     autocmd FileType * if &filetype != 'html' | inoremap < < | endif
 augroup END
-
 
 
 "======== 新建tab ===================
