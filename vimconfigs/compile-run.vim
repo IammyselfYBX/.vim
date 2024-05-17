@@ -149,28 +149,85 @@ function! FindExecutable(dir)
     return ''
 endfunction
 
+" function! RunExecutable()
+"     let root_dir_make = FindRootDir('Makefile')
+"     let root_dir_cmake = FindRootDir('CMakeLists.txt')
+" 
+"     if root_dir_make != '/' && filereadable(root_dir_make . '/Makefile')
+"         let executable_path = FindExecutable(root_dir_make)
+"         if executable_path != ''
+"             execute 'AsyncRun -cwd=' . root_dir_make . ' ./' . executable_path
+"         endif
+"     elseif root_dir_cmake != '/' && filereadable(root_dir_cmake . '/CMakeLists.txt')
+"         let build_dir = root_dir_cmake . '/build'
+"         let executable_path = FindExecutable(build_dir)
+"         if executable_path != ''
+"             execute 'AsyncRun -cwd=' . build_dir . ' ./' . executable_path
+"         endif
+"     else
+"         let executable_path = FindExecutable(getcwd())
+"         if executable_path != ''
+"             execute 'AsyncRun ./' . executable_path
+"         endif
+"     endif
 function! RunExecutable()
-    let root_dir_make = FindRootDir('Makefile')
-    let root_dir_cmake = FindRootDir('CMakeLists.txt')
+    " 获取当前文件名（不带扩展名）
+    let current_file = expand('%:t:r')
+    " 获取当前文件的路径
+    let current_file_path = getcwd() . '/' . current_file
 
-    if root_dir_make != '/' && filereadable(root_dir_make . '/Makefile')
-        let executable_path = FindExecutable(root_dir_make)
-        if executable_path != ''
-            execute 'AsyncRun -cwd=' . root_dir_make . ' ./' . executable_path
-        endif
-    elseif root_dir_cmake != '/' && filereadable(root_dir_cmake . '/CMakeLists.txt')
-        let build_dir = root_dir_cmake . '/build'
-        let executable_path = FindExecutable(build_dir)
-        if executable_path != ''
-            execute 'AsyncRun -cwd=' . build_dir . ' ./' . executable_path
-        endif
+    " 如果与当前文件同名的可执行文件存在，直接执行它
+    if filereadable(current_file_path) && !isdirectory(current_file_path)
+        execute 'AsyncRun ./%<'
     else
-        let executable_path = FindExecutable(getcwd())
-        if executable_path != ''
-            execute 'AsyncRun ./' . executable_path
+        " 查找包含 'Makefile' 的根目录
+        let root_dir_make = FindRootDir('Makefile')
+        " 查找包含 'CMakeLists.txt' 的根目录
+        let root_dir_cmake = FindRootDir('CMakeLists.txt')
+
+        " 如果找到的根目录不是 '/' 并且根目录中存在 'Makefile' 文件
+        if root_dir_make != '/' && filereadable(root_dir_make . '/Makefile')
+            " 在根目录中找到可执行文件的路径
+            let executable_path = FindExecutable(root_dir_make)
+            " 如果找到可执行文件
+            if executable_path != ''
+                " 使用 AsyncRun 插件在根目录下异步运行可执行文件
+                execute 'AsyncRun -cwd=' . root_dir_make . ' ./' . executable_path
+            endif
+        " 如果找到的根目录不是 '/' 并且根目录中存在 'CMakeLists.txt' 文件
+        elseif root_dir_cmake != '/' && filereadable(root_dir_cmake . '/CMakeLists.txt')
+            " 设置构建目录为根目录下的 'build' 文件夹
+            let build_dir = root_dir_cmake . '/build'
+            " 在构建目录中找到可执行文件的路径
+            let executable_path = FindExecutable(build_dir)
+            " 如果找到可执行文件
+            if executable_path != ''
+                " 使用 AsyncRun 插件在构建目录下异步运行可执行文件
+                execute 'AsyncRun -cwd=' . build_dir . ' ./' . executable_path
+            endif
+        else
+            " 在当前工作目录中找到第一个不是以 .o 结尾的可执行文件
+            let executable_path = ''
+            for file in split(glob('*'), '\n')
+                if filereadable(file) && file !~ '\.o$' && !isdirectory(file)
+                    let executable_path = file
+                    break
+                endif
+            endfor
+
+            " 如果找到可执行文件
+            if executable_path != ''
+                execute 'AsyncRun ./' . executable_path
+            else
+                echo "No executable file found."
+            endif
         endif
     endif
 endfunction
+
+
+
+" endfunction
 
 "" python的执行
 """ 检查 Conda 是否安装并列出环境
