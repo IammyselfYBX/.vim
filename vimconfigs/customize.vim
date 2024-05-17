@@ -82,6 +82,25 @@ inoremap <expr> { InsertPair('{', '}')
 inoremap <expr> ' InsertPair("'", "'")
 inoremap <expr> " InsertPair('"', '"')
 
+" 删除配对符号的功能
+function! DeletePair(open, close)
+    let line = getline(".")
+    let col = col(".")
+    " 判断当前字符是否为配对符号之一
+    if col > 1 && col <= len(line) && line[col - 2] == a:open && line[col - 1] == a:close
+        return "\<BS>\<Del>"
+    else
+        return "\<BS>"
+    endif
+endfunction
+
+" 在insert模式下删除前一个符号时自动删除后一个符号
+inoremap <expr> <BS> DeletePair('(', ')')
+inoremap <expr> <BS> DeletePair('[', ']')
+inoremap <expr> <BS> DeletePair('{', '}')
+inoremap <expr> <BS> DeletePair("'", "'")
+inoremap <expr> <BS> DeletePair('"', '"')
+
 " 根据文件类型设置不同的映射
 augroup FileTypeSettings
     autocmd!
