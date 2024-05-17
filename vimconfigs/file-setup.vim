@@ -3,6 +3,9 @@
 "============= 文件格式 =============================
 " set encoding=utf-8 " 不处理中文
 set fileencodings=ucs-bom,utf-8,gb18030,latin1 "处理中文
+" ga 查看字符编码
+" g8 查看文件编码
+" gf 打开文件
 
 "想使用 <SPACE><SPACE> 来进行跳转下一个占位符
 "noremap <SPACE><SPACE> <Esc>/<++><CR>:nohlsearch<CR>ciw
