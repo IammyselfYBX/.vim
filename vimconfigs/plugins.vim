@@ -200,6 +200,16 @@ call plug#begin('~/.vim/plugged')
   "======================================
   
   "======================================
+  "     vim-live-server
+  "======================================
+  " 1.安装依赖
+  "   sudo npm install -g live-server
+  "   sudo npm install -g browser-sync
+  " Plug 'https://github.com/wolandark/vim-live-server.git'
+  Plug 'wolandark/vim-live-server'
+  "======================================
+
+  "======================================
   "     github copilot 
   "======================================
   Plug 'github/copilot.vim'
