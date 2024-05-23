@@ -206,7 +206,7 @@ call plug#begin('~/.vim/plugged')
   "   sudo npm install -g live-server
   "   sudo npm install -g browser-sync
   " Plug 'https://github.com/wolandark/vim-live-server.git'
-  Plug 'wolandark/vim-live-server'
+  " Plug 'wolandark/vim-live-server'
   "======================================
 
   "======================================
