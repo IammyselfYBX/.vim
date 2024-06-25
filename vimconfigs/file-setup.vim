@@ -53,3 +53,8 @@ filetype on
 filetype indent on
 filetype plugin on
 
+"============================
+" 文件类别定义
+"===========================
+au BufRead,BufNewFile *.cu,*.cuh set filetype=cuda
+
