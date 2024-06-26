@@ -109,7 +109,7 @@ inoremap <expr> <BS> DeletePair()
 augroup FileTypeSettings
     autocmd!
     autocmd FileType html inoremap <expr> < InsertPair('<', '>')
-    autocmd FileType * if &filetype != 'html' | inoremap < < | endif
+    autocmd FileType * if &filetype != 'html' | inoremap < <| endif
 augroup END
 
 
