@@ -1,0 +1,30 @@
+snippet kernel
+__global__ void ${1:kernelName}(${2:int* a, int* b, int* c}) {
+    int idx = blockIdx.x * blockDim.x + threadIdx.x;
+    if (idx < ${3:N}) {
+        ${4:c[idx] = a[idx] + b[idx];}
+    }
+}
+endsnippet
+
+snippet cudamalloc
+cudaMalloc((void**)&${1:ptr}, ${2:size});
+endsnippet
+
+snippet cudamemcpy
+cudaMemcpy(${1:dst}, ${2:src}, ${3:size}, ${4:cudaMemcpyHostToDevice});
+endsnippet
+
+snippet cudafree
+cudaFree(${1:ptr});
+endsnippet
+
+snippet cufunc
+__device__ ${1:void} ${2:funcName}(${3:int a}) {
+    ${4:// TODO: implement}
+}
+endsnippet
+
+snippet kernel_launch
+${1:kernelName}<<<${2:blocks}, ${3:threads}>>>(${4:params});
+endsnippet
