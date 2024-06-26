@@ -21,6 +21,9 @@ if g:is_linux
     "autocmd FileType cpp nnoremap <buffer> <C-r> :AsyncRun ./%:r <CR>
     autocmd FileType cpp nnoremap <buffer> <C-r> :call RunExecutable()<CR>
     autocmd FileType cpp nnoremap <buffer> <C-p> :call CompileProject()<CR>
+    " 自动命令：当文件类型为 cuda 时，映射 Ctrl+c 键来编译 CUDA 程序
+    autocmd FileType cuda nnoremap <buffer> <C-c> :call CompileCuda()<CR>
+    autocmd FileType cuda nnoremap <buffer> <C-r> :call RunExecutable()<CR>
     
     " Python Interpreter
     " autocmd FileType python nnoremap <buffer> <C-i> :!python % <CR>
@@ -79,6 +82,8 @@ autocmd Filetype markdown nnoremap <buffer> <C-r> :MarkdownPreview <CR>
 "autocmd Filetype tex nnoremap <buffer> <C-c> :AsyncRun latexmk <cr>
 "autocmd Filetype tex nnoremap <buffer> <C-r> :LLPStartPreview<cr>
 autocmd FileType tex nnoremap <buffer> <C-c> :AsyncLatex <CR>
+
+
 
 
 " 项目编译函数
@@ -225,6 +230,52 @@ function! RunExecutable()
     endif
 endfunction
 
+"" 编译 CUDA 程序的函数
+function! CompileCuda()
+    " 检查 nvcc 编译器是否存在
+    if executable('nvcc')
+        " 自动检测 GPU 架构
+        let gpu_arch = DetectGpuArch()
+        if gpu_arch == ''
+            echo "无法检测到 GPU 架构，请手动设置。"
+            return
+        endif
+
+        let compile_command = 'nvcc -arch=' . gpu_arch . ' % -o %<'
+        " 异步运行编译命令
+        execute 'AsyncRun ' . compile_command
+    else
+        " 如果 nvcc 不存在，提示用户安装 CUDA
+        echo "nvcc 编译器未找到，请安装 CUDA 开发工具包。"
+    endif
+endfunction
+
+"" 检测 GPU 架构的函数
+function! DetectGpuArch()
+    " 检查 nvidia-smi 命令是否存在
+    if !executable('nvidia-smi')
+        return ''
+    endif
+
+    " 获取 GPU 型号
+    let l:output = system('nvidia-smi --query-gpu=name --format=csv,noheader')
+    let l:gpu_name = substitute(l:output, '\n', '', 'g')
+
+    " 根据 GPU 型号映射到对应的架构
+    if l:gpu_name =~? 'GTX 1080\|GTX 1070\|GTX 1060\|Tesla P100'
+        return 'sm_60'
+    elseif l:gpu_name =~? 'RTX 2080\|RTX 2070\|RTX 2060\|Tesla T4'
+        return 'sm_75'
+    elseif l:gpu_name =~? 'RTX 3080\|RTX 3070\|RTX 3060\|A100'
+        return 'sm_80'
+    elseif l:gpu_name =~? 'RTX 3090'
+        return 'sm_86'
+    elseif l:gpu_name =~? 'RTX 4090'
+        return 'sm_90'
+    else
+        return ''
+    endif
+endfunction
 
 
 " endfunction
