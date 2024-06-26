@@ -251,9 +251,11 @@ function! CompileCuda()
 endfunction
 
 "" 检测 GPU 架构的函数
+""" 可以访问 https://www.nvidia.com/en-eu/geforce/graphics-cards/compare/
 function! DetectGpuArch()
     " 检查 nvidia-smi 命令是否存在
     if !executable('nvidia-smi')
+        echo "nvidia-smi 命令未找到，请安装 NVIDIA 驱动。"
         return ''
     endif
 
