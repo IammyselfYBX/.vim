@@ -111,7 +111,8 @@ endfunction
 function! CompileProject()
     let root_dir_make = FindRootDir('Makefile')
     let root_dir_cmake = FindRootDir('CMakeLists.txt')
-
+    
+    " 如果找到包含 'Makefile' 的根目录或包含 'CMakeLists.txt' 的根目录
     if root_dir_make != '/' && filereadable(root_dir_make . '/Makefile')
         execute 'AsyncRun -cwd=' . root_dir_make . ' make'
     elseif root_dir_cmake != '/' && filereadable(root_dir_cmake . '/CMakeLists.txt')

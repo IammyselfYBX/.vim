@@ -1,0 +1,11 @@
+autoload
+colors
+.gitignore
+pack
+plugged
+swap
+.git
+ignore_count.txt
+undodir
+README.md
+undodir  
