@@ -4,7 +4,6 @@
 "-----------------------------------------------------------------------------
 
 if g:is_linux
-    
     " C Compiler:
     "autocmd FileType c nnoremap <buffer> <C-c> :!gcc % -o %< && ./%< <CR>
     autocmd FileType c nnoremap <buffer> <C-c> :AsyncRun gcc -Wall % -o %< <CR>
@@ -53,6 +52,11 @@ elseif g:is_mac
     " autocmd FileType python nnoremap <buffer> <C-r> :AsyncRun python3 % <CR>
     autocmd FileType python nnoremap <buffer> <C-r> :call RunPython()<CR>
 endif    
+
+" Fortran
+" autocmd FileType fortran nnoremap <buffer> <C-c> :!gfortran % -o %< && ./%< <CR>
+autocmd FileType fortran nnoremap <buffer> <C-c> :AsyncRun gfortran % -o %< <CR>
+autocmd FileType fortran nnoremap <buffer> <C-r> :call RunExecutable()<CR>
 
 " Bash script
 " autocmd FileType sh nnoremap <buffer> <C-i> :!sh % <CR>
