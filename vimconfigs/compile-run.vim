@@ -6,7 +6,7 @@
 if g:is_linux
     " C Compiler:
     "autocmd FileType c nnoremap <buffer> <C-c> :!gcc % -o %< && ./%< <CR>
-    autocmd FileType c nnoremap <buffer> <C-c> :AsyncRun gcc -Wall % -o %< <CR>
+    autocmd FileType c nnoremap <buffer> <C-c> :AsyncRun gcc -Wall % -o %< -lm <CR>
     "autocmd FileType c nnoremap <buffer> <C-r> :! ./%< <CR>
     "autocmd FileType c nnoremap <buffer> <C-r> :AsyncRun ./%< <CR>
     autocmd FileType c nnoremap <buffer> <C-r> :call RunExecutable()<CR>
