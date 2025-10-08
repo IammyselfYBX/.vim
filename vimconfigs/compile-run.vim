@@ -111,7 +111,7 @@ function! AsyncRunLatex()
     endif
 endfunction
  
-"" 在项目根目录执行编译命令
+"""" 在项目根目录执行编译命令
 function! CompileProject()
     let root_dir_make = FindRootDir('Makefile')
     let root_dir_cmake = FindRootDir('CMakeLists.txt')

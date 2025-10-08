@@ -145,33 +145,33 @@ call plug#begin('~/.vim/plugged')
   " 用 coc.nvim 代替了 
 
 
-  " markdown 
-  "" Markdown Preview for (Neo)vim ~/.vim/plugin/markdown/markdown-preview-for-vim.vim 
-  "" 需要预览数学公式需要安装 iamcco/mathjax-support-for-mkdp
-	""""""Plug 'iamcco/mathjax-support-for-mkdp', { 'for': 'markdown' } 
-  "Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': 'markdown'}	 
-  """"""Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && npx --yes yarn install' }
-	"" Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}	 
-  "" 加上 'for': ['markdown', 'vim-plug']} 就是只有加载markdown的时候,才加载这个插件,这样启动会快一些
-  "" 使用事项：
-  ""       1.到 ~/.vim/plugin/markdown/markdown-preview-for-vim.vim
-  ""         修改 mkdp_browser 参数为系统默认的浏览器(默认chromium)
-  ""          sudo apt install chromium-browser
+  "======================================
+  "       markdown(Markdown Preview for (Neo)vim )
+  "======================================
+	" Plug 'iamcco/mathjax-support-for-mkdp', { 'for': 'markdown' } " 加上 'for': ['markdown', 'vim-plug']} 就是只有加载markdown的时候,才加载这个插件,这样启动会快一些 
+  " Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && npx --yes yarn install' } "[已弃用] do表示安装完插件后要执行的命令, 这里使用了 yarn 来安装依赖
+  " Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': 'markdown'}	 " mkdp#util#install() 是插件自带的安装函数, 这样就不需要手动安装依赖了
+  Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
+  "======================================
+  " 1.配置文件： ~/.vim/plugin/markdown/markdown-preview-for-vim.vim
+  " 2.需要预览数学公式需要安装 iamcco/mathjax-support-for-mkdp
+  Plug 'iamcco/mathjax-support-for-mkdp', { 'for': 'markdown' }
+  " 3.修改 mkdp_browser 参数为系统默认的浏览器(默认chromium)
+  "    sudo apt install chromium-browser
   
-  """"""Plug 'dhruvasagar/vim-table-mode', { 'do': { -> mkdp#util#install() }, 'for': 'markdown'}
-    "======================================
-    "     vim-table-mode
-    "======================================
-    " 1.配置文件 ~/.vim/plugin/markdown/vim-table-mode.vim
-    " 
-    "======================================
-    " <C-\>   开启/关闭 vim-table-mode
-    " 1h'[|', ']|', '{|' '}|' 分别表示移动向 left | right | up | down 
-    " 2. i| 表示向前插入一个格
-    "    a| 表示向后插入一个格
-    " 3.<Leader>tdd 删除当前行
-    " 4.<Leader>tdc 删除当前列
-    " 4.<Leader>tic 前面插入一列
+  "======================================
+  "     vim-table-mode
+  "======================================
+  Plug 'dhruvasagar/vim-table-mode', { 'do': { -> mkdp#util#install() }, 'for': 'markdown'}
+  "======================================
+  " 1.配置文件 ~/.vim/plugin/markdown/vim-table-mode.vim
+  " <C-\>   开启/关闭 vim-table-mode
+  " 1h'[|', ']|', '{|' '}|' 分别表示移动向 left | right | up | down 
+  " 2. i| 表示向前插入一个格
+  "    a| 表示向后插入一个格
+  " 3.<Leader>tdd 删除当前行
+  " 4.<Leader>tdc 删除当前列
+  " 4.<Leader>tic 前面插入一列
 
 
 	" A Vim Plugin for Lively Previewing LaTeX PDF Output
