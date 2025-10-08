@@ -37,49 +37,49 @@ let g:table_mode_syntax = 1
 " 启用表格自动格式化
 let g:table_mode_auto_align = 1
 
-" ------------------------------------------------------
-" 表格创建快捷键
-" ------------------------------------------------------
-" 快速创建表格模板（普通模式）
-nnoremap <Leader>tt :TableModeRealign<CR>
-" 创建 Markdown 风格表格
-nnoremap <Leader>tm :call tablemode#TableizeByDelimiter('\|')<CR>
-" 创建 CSV 风格表格
-nnoremap <Leader>tc :call tablemode#TableizeByDelimiter(',')<CR>
-
-" ----------------------------------------------------
-" 表格编辑快捷键
-" ---------------------------------------------------
-" 表格行操作
-nnoremap <Leader>tdd :call tablemode#table#DeleteRow()<CR>
-nnoremap <Leader>tic :call tablemode#table#DeleteColumn()<CR>
-nnoremap <Leader>tiC :call tablemode#table#AddColumn(1)<CR>
-nnoremap <Leader>tir :call tablemode#table#AddRow(1)<CR>
-
-" 表格单元格移动（插入模式）
-inoremap <Tab> <C-R>=tablemode#table#MoveToNextCell()<CR>
-inoremap <S-Tab> <C-R>=tablemode#table#MoveToPreviousCell()<CR>
-
-" 表格排序功能
-vnoremap <Leader>ts :call tablemode#table#Sort('')<CR>
-
-" -----------------------------------------------------------------------------
-" 表格格式化快捷键
-" -----------------------------------------------------------------------------
-" 重新对齐当前表格
-nnoremap <Leader>tr :TableModeRealign<CR>
-" 格式化选中的文本为表格
-vnoremap <Leader>tf :Tableize<CR>
-" 转换 CSV 到表格
-vnoremap <Leader>T :Tableize/,<CR>
-
-" -----------------------------------------------------------------------------
-" 表头操作快捷键
-" -----------------------------------------------------------------------------
-" 添加表头分隔线
-nnoremap <Leader>thr :call tablemode#table#AddHeaderLine()<CR>
-" 删除表头分隔线
-nnoremap <Leader>thd :call tablemode#table#DeleteHeaderLine()<CR>
+""" ------------------------------------------------------
+""" 表格创建快捷键
+""" ------------------------------------------------------
+""" 快速创建表格模板（普通模式）
+""nnoremap <Leader>tt :TableModeRealign<CR>
+""" 创建 Markdown 风格表格
+""nnoremap <Leader>tm :call tablemode#TableizeByDelimiter('\|')<CR>
+""" 创建 CSV 风格表格
+""nnoremap <Leader>tc :call tablemode#TableizeByDelimiter(',')<CR>
+""
+""" ----------------------------------------------------
+""" 表格编辑快捷键
+""" ---------------------------------------------------
+""" 表格行操作
+""nnoremap <Leader>tdd :call tablemode#table#DeleteRow()<CR>
+""nnoremap <Leader>tic :call tablemode#table#DeleteColumn()<CR>
+""nnoremap <Leader>tiC :call tablemode#table#AddColumn(1)<CR>
+""nnoremap <Leader>tir :call tablemode#table#AddRow(1)<CR>
+""
+""" 表格单元格移动（插入模式）
+""inoremap <Tab> <C-R>=tablemode#table#MoveToNextCell()<CR>
+""inoremap <S-Tab> <C-R>=tablemode#table#MoveToPreviousCell()<CR>
+""
+""" 表格排序功能
+""vnoremap <Leader>ts :call tablemode#table#Sort('')<CR>
+""
+""" -----------------------------------------------------------------------------
+""" 表格格式化快捷键
+""" -----------------------------------------------------------------------------
+""" 重新对齐当前表格
+""nnoremap <Leader>tr :TableModeRealign<CR>
+""" 格式化选中的文本为表格
+""vnoremap <Leader>tf :Tableize<CR>
+""" 转换 CSV 到表格
+""vnoremap <Leader>T :Tableize/,<CR>
+""
+""" -----------------------------------------------------------------------------
+""" 表头操作快捷键
+""" -----------------------------------------------------------------------------
+""" 添加表头分隔线
+""nnoremap <Leader>thr :call tablemode#table#AddHeaderLine()<CR>
+""" 删除表头分隔线
+""nnoremap <Leader>thd :call tablemode#table#DeleteHeaderLine()<CR>
 
 " -----------------------------------------------------------------------------
 " 表格导出功能

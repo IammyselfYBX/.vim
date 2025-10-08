@@ -146,7 +146,8 @@ call plug#begin('~/.vim/plugged')
 
 
   "======================================
-  "       markdown(Markdown Preview for (Neo)vim )
+  "       markdown
+  " Markdown Preview for (Neo)vim 
   "======================================
 	" Plug 'iamcco/mathjax-support-for-mkdp', { 'for': 'markdown' } " 加上 'for': ['markdown', 'vim-plug']} 就是只有加载markdown的时候,才加载这个插件,这样启动会快一些 
   " Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && npx --yes yarn install' } "[已弃用] do表示安装完插件后要执行的命令, 这里使用了 yarn 来安装依赖
@@ -175,10 +176,13 @@ call plug#begin('~/.vim/plugged')
   "   <Leader>tdc 删除当前列
   "   <Leader>tic 前面插入一列
 
-
-	" A Vim Plugin for Lively Previewing LaTeX PDF Output
-  " ~/.vim/plugin/latex/vim-latex-live-preview.vim
-  " 暂时不用，如果需要用的话要到 ~/.vim/plugin/latex/vim-latex-live-preview.vim 文件中修改livepreview_engine
+  "======================================
+	"     Latex
+  " A Vim Plugin for Lively Previewing LaTeX PDF Output
+  "======================================
+  " 1.配置文件: ~/.vim/plugin/latex/vim-latex-live-preview.vim
+  " 2.必须修改latex引擎 ~/.vim/plugin/latex/vim-latex-live-preview.vim 文件中修改livepreview_engine
+  " 3.[已弃用]使用 AsyncLatex 代替
 	" Plug 'xuhdev/vim-latex-live-preview', { 'for': 'tex' }	" 用pdf软件实时预览latex文档的编写
 
   " 调试
