@@ -165,13 +165,15 @@ call plug#begin('~/.vim/plugged')
   Plug 'dhruvasagar/vim-table-mode', { 'do': { -> mkdp#util#install() }, 'for': 'markdown'}
   "======================================
   " 1.配置文件 ~/.vim/plugin/markdown/vim-table-mode.vim
-  " <C-\>   开启/关闭 vim-table-mode
-  " 1h'[|', ']|', '{|' '}|' 分别表示移动向 left | right | up | down 
-  " 2. i| 表示向前插入一个格
-  "    a| 表示向后插入一个格
-  " 3.<Leader>tdd 删除当前行
-  " 4.<Leader>tdc 删除当前列
-  " 4.<Leader>tic 前面插入一列
+  " 2.快捷键
+  "   <C-\>   开启/关闭 vim-table-mode
+  "   || 展开|-----------|------------|
+  "   h'[|', ']|', '{|' '}|' 分别表示移动向 left | right | up | down 
+  "   i| 表示向前插入一个格
+  "   a| 表示向后插入一个格
+  "   <Leader>tdd 删除当前行
+  "   <Leader>tdc 删除当前列
+  "   <Leader>tic 前面插入一列
 
 
 	" A Vim Plugin for Lively Previewing LaTeX PDF Output
