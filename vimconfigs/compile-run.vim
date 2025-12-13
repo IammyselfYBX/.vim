@@ -84,7 +84,7 @@ autocmd Filetype markdown nnoremap <buffer> <C-r> :MarkdownPreview <CR>
 
 " Latex 
 "autocmd Filetype tex nnoremap <buffer> <C-c> :AsyncRun latexmk <cr>
-"autocmd Filetype tex nnoremap <buffer> <C-r> :LLPStartPreview<cr>
+autocmd Filetype tex nnoremap <buffer> <C-r> :LLPStartPreview<cr>
 autocmd FileType tex nnoremap <buffer> <C-c> :AsyncLatex <CR>
 
 

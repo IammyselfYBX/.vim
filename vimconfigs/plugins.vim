@@ -217,7 +217,7 @@ call plug#begin('~/.vim/plugged')
   "======================================
   "     github copilot 
   "======================================
-  Plug 'github/copilot.vim'
+  "Plug 'github/copilot.vim'
   "======================================
   " 1.配置文件: ~/.vim/plugin/github-copilot.vim
   "======================================

@@ -4,15 +4,21 @@ let g:livepreview_previewer = 'zathura'
 "===========================================
 " LaTeX引擎
 " 自动检测并设置LaTeX引擎路径
-if executable('xelatex')
-    " 自动获取xelatex的完整路径
-    let g:livepreview_engine = substitute(system('which xelatex'), '\n\+$', '', '')
-    echo "LaTeX引擎已自动设置为: " . g:livepreview_engine
-else
-    " 如果找不到xelatex，使用默认路径
-    let g:livepreview_engine = '/usr/local/texlive/2018/bin/x86_64-linux/xelatex'
-    echo "警告: 未找到xelatex，使用默认路径: " . g:livepreview_engine
-endif
+" 仅在 tex 文件时检测并设置 LaTeX 引擎
+augroup latex_engine_detect
+    autocmd!
+    autocmd BufRead,BufNewFile *.tex call s:CheckLatexEngine()
+augroup END
+
+function! s:CheckLatexEngine()
+    if executable('xelatex')
+        let g:livepreview_engine = substitute(system('which xelatex'), '\n\+$', '', '')
+        echo "LaTeX引擎已自动设置为: " . g:livepreview_engine
+    else
+        let g:livepreview_engine = '/usr/local/texlive/2018/bin/x86_64-linux/xelatex'
+        echo "警告: 未找到xelatex，使用默认路径: " . g:livepreview_engine
+    endif
+endfunction
 
 " 手动设置LaTeX引擎路径
 " let g:livepreview_engine = '/usr/local/texlive/2018/bin/x86_64-linux/xelatex'
