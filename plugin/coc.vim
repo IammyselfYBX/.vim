@@ -161,9 +161,13 @@ nmap <silent> <LEADER><down> <Plug>(coc-diagnostic-next)
 "    查找所有引用该符号的地方。
 "    比如你想看一个函数在哪些地方被调用，或者一个变量被在哪些地方使用。
 
+" 跳转到当前光标下符号的定义处(coc-definition)
 nmap <silent> gd <Plug>(coc-definition)
+" 跳转到当前符号的类型定义处(coc-type-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
+" 跳转到当前符号的实现处(Go to Implementation)
 nmap <silent> gi <Plug>(coc-implementation)
+" 查找并列出当前符号在项目中的所有引用(Find All References)
 nmap <silent> gr <Plug>(coc-references)
 
 " Use K to show documentation in preview window.
