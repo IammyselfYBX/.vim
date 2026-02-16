@@ -14,6 +14,15 @@ __   _(_)_ __ ___  _ __ ___   / (_)_ __ (_) |___   _(_)_ __ ___
 
 ```
 
+## 支持平台
+
+本配置支持以下平台：
+- Linux (已测试)
+- macOS (已适配)
+- Windows (部分支持)
+
+配置会自动检测操作系统并应用相应的平台特定设置。
+
 # 目录结构
 ```
 .
@@ -50,5 +59,127 @@ __   _(_)_ __ ___  _ __ ___   / (_)_ __ (_) |___   _(_)_ __ ___
 ├── YBXUltiSnips   # 自定义的snippets片段
 └── undodir        # 重新打开文件依旧可以撤销之前的编辑的缓存文件
 ```
+
+## 安装说明
+
+### Linux 安装
+
+1. 克隆此仓库到 `~/.vim` 目录：
+```bash
+git clone <repository-url> ~/.vim
+```
+
+2. 创建软链接：
+```bash
+# For Vim
+ln -s ~/.vim/.vimrc ~/.vimrc
+
+# For Neovim
+mkdir -p ~/.config/nvim
+ln -s ~/.vim/.vimrc ~/.config/nvim/init.vim
+```
+
+3. 安装依赖：
+```bash
+# Ubuntu/Debian
+sudo apt-get install nodejs npm ctags cscope
+
+# Arch Linux
+sudo pacman -S nodejs npm ctags cscope
+```
+
+4. 打开 Vim/Neovim，插件会自动安装。
+
+### macOS 安装
+
+1. 克隆此仓库到 `~/.vim` 目录：
+```bash
+git clone <repository-url> ~/.vim
+```
+
+2. 创建软链接：
+```bash
+# For Vim
+ln -s ~/.vim/.vimrc ~/.vimrc
+
+# For Neovim
+mkdir -p ~/.config/nvim
+ln -s ~/.vim/.vimrc ~/.config/nvim/init.vim
+```
+
+3. 安装依赖（使用 Homebrew）：
+```bash
+# 安装 Homebrew (如果还没有安装)
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
+# 安装必要的依赖
+brew install node
+brew install ctags
+brew install cscope
+
+# 可选：安装 Neovim
+brew install neovim
+```
+
+4. 打开 Vim/Neovim，插件会自动安装。
+
+## 平台特定功能
+
+### macOS 特性
+- **剪贴板集成**：自动使用系统剪贴板 (`clipboard=unnamed`)
+- **HTML 预览**：使用 `open` 命令打开默认浏览器
+- **编译运行**：支持 C/C++/Python 等语言的���译和运行
+
+### Linux 特性
+- **剪贴板集成**：使用 X11 剪贴板 (`clipboard=unnamedplus`)
+- **HTML 预览**：使用 Firefox 浏览器
+- **CUDA 支持**：支持 CUDA 程序的编译和运行
+
+## 常见问题
+
+### macOS 相关
+
+1. **剪贴板不工作**
+   - 确保 Vim 编译时启用了剪贴板支持
+   - 检查：`vim --version | grep clipboard`
+   - 如果显示 `-clipboard`，需要重新安装支持剪贴板的版本：
+     ```bash
+     brew install vim
+     # 或者
+     brew install macvim
+     ```
+
+2. **ctags 版本问题**
+   - macOS 自带的 ctags 是 BSD 版本，功能有限
+   - 建议安装 Universal Ctags：
+     ```bash
+     brew install --HEAD universal-ctags/universal-ctags/universal-ctags
+     ```
+
+3. **Node.js 相关插件问题**
+   - 确保 Node.js 和 npm 已正确安装：
+     ```bash
+     node --version
+     npm --version
+     ```
+
+### 通用问题
+
+1. **插件安装失败**
+   - 在 Vim 中运行 `:PlugInstall` 手动安装插件
+   - 检查网络连接，必要时使用代理
+
+2. **CoC 插件问题**
+   - 确保 Node.js 版本 >= 14.14
+   - 运行 `:checkhealth` (Neovim) 检查健康状态
+
+## 快捷键说明
+
+配置已经包含了跨平台的快捷键映射，在 macOS 和 Linux 上使用相同的快捷键。
+
+主要快捷键请参考配置文件：
+- `~/.vim/vimconfigs/shortcut-key.vim` - 全局快捷键
+- `~/.vim/vimconfigs/compile-run.vim` - 编译运行快捷键
+- `~/.vim/plugin/` - 各插件的快捷键配置
 
 

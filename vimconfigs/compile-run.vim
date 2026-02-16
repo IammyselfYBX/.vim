@@ -76,7 +76,11 @@ autocmd FileType vim,zsh,tmux nnoremap <buffer> <C-r> :source % <CR>
 autocmd Filetype java nnoremap <buffer> <C-r> :AsyncRun java %:r <CR>
 
 " HTML
-autocmd Filetype html nnoremap <buffer> <C-i> :!firefox % &<CR>
+if g:is_linux
+    autocmd Filetype html nnoremap <buffer> <C-i> :!firefox % &<CR>
+elseif g:is_mac
+    autocmd Filetype html nnoremap <buffer> <C-i> :!open % <CR>
+endif
 
 " Markdown 前提是已经安装MarkdownPreview插件
 autocmd Filetype markdown nnoremap <buffer> <C-r> :MarkdownPreview <CR>

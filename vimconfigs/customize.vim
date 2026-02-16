@@ -4,6 +4,15 @@ let g:is_mac = has('macunix')
 let g:is_linux = has('unix') && !has('macunix')
 let g:is_windows = has('win32') || has('win64')
 
+"------- 剪贴板设置 ----------
+" Mac 系统使用系统剪贴板
+if g:is_mac
+    set clipboard=unnamed
+" Linux 系统使用系统剪贴板
+elseif g:is_linux
+    set clipboard=unnamedplus
+endif
+
 "------- 搜索 ----------
 set hlsearch "设置搜索高亮
 "每次打开新的文件去除上次搜索高亮
