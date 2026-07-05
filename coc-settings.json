@@ -9,12 +9,12 @@
 
   "languageserver": {
     "ccls": {
-      "command": "ccls",
+      "command": "clangd",
       "filetypes": ["c", "cc", "cpp", "c++", "objc", "objcpp", "cuda"],
-      "rootPatterns": [".ccls", "compile_commands.json", ".git/", ".hg/"],
+      "rootPatterns": [".clangd", "compile_commands.json", ".git/", ".hg/"],
       "initializationOptions": {
          "cache": {
-           "directory": "/tmp/ccls"
+           "directory": "/tmp/clangd"
          },
          "client":{
              "snippetSupport": true
@@ -33,6 +33,7 @@
   },
   "snippets.extends": {
     "cuda": ["c", "cpp"]
-  }
+  },
+  "snippets.ultisnips.pythonPrompt": false
 }
 
