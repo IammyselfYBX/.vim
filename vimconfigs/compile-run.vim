@@ -83,7 +83,8 @@ elseif g:is_mac
 endif
 
 " Markdown 前提是已经安装MarkdownPreview插件
-autocmd Filetype markdown nnoremap <buffer> <C-r> :MarkdownPreview <CR>
+"autocmd Filetype markdown nnoremap <buffer> <C-r> :MarkdownPreview <CR>
+autocmd Filetype markdown nnoremap <buffer> <C-r> :Glowsplit <CR>
 "autocmd Filetype markdown source ~/.vim/UltiSnips/markdown.vim
 
 " Latex 
