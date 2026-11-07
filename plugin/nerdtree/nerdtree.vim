@@ -22,6 +22,8 @@ let g:NERDTreeDirArrowCollapsible = '▾'
   let g:NERDTreeHidden=0
 
 " 启动时显示书签
+" 将书签文件保存在 ~/.vim 内（该文件由 .gitignore 忽略）
+let g:NERDTreeBookmarksFile = expand('~/.vim/.NERDTreeBookmarks')
 "let NERDTreeShowBookmarks=1
 
 "Vim启动时自动打开NERDTree

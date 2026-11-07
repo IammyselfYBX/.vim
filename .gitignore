@@ -3,3 +3,6 @@ plugged/*
 .netrwhist
 swap/* 
 undodir/*
+
+# NERDTree 书签（本机状态，不纳入版本控制）
+.NERDTreeBookmarks
