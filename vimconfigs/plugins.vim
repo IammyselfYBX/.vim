@@ -138,6 +138,9 @@ call plug#begin('~/.vim/plugged')
   " 1.配置文件: ~/.vim/plugin/snippet.vim
   " 2.个性化设置
   "let g:python3_host_prog = "/usr/bin/python3"
+  "  python3.12 -m venv ~/.venv/nvim-python 创建 Neovim 专用虚拟环境
+  "  ~/.venv/nvim-python/bin/pip install pynvim   # 在虚拟环境中安装 pynvim
+  let g:python3_host_prog = expand('~/.venv/nvim-python/bin/python3')
   " coc的snippets具体配置文件 ~/.vim/c-settings.json
   " 其中 YBXUltiSnips 是自定义的snippets
   " vim-snippets/UltiSnips是现成的snippets
@@ -189,9 +192,18 @@ call plug#begin('~/.vim/plugged')
   "======================================
   "   presenting.nvim
   "======================================
-  if has('nvim')
+""  if has('nvim')
+""      Plug 'sotte/presenting.nvim', { 'on': 'Presenting' }
+""  endif
+   if has('nvim')
     Plug 'sotte/presenting.nvim'
-  endif
+    luafile ~/.vim/plugin/markdown/presenting.lua
+    " 1. 安装 nvim-treesitter
+    Plug 'nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate' }
+
+    "g2. 安装语法高亮支持（可选但推荐）
+    Plug 'nvim-treesitter/nvim-treesitter-context'
+   endif
 
   "======================================
 	"     Latex
