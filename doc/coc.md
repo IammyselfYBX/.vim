@@ -39,6 +39,7 @@ let g:coc_data_home = expand('~/.vim/plugged/coc')
 在 `~/.npmrc` 增加：
 
 ```ini
+registry=https://registry.npmmirror.com/
 coc.nvim:registry=https://registry.npmmirror.com/
 ```
 

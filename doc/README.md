@@ -70,6 +70,13 @@ git ls-remote git@github.com:junegunn/vim-plug.git HEAD
 :CocList extensions
 ```
 
+国内 npm 环境建议在 `~/.npmrc` 同时设置：
+
+```ini
+registry=https://registry.npmmirror.com/
+coc.nvim:registry=https://registry.npmmirror.com/
+```
+
 ## COC 路径
 
 ```vim

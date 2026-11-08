@@ -142,10 +142,11 @@ COC 扩展不要用 vim-plug 安装；COC 自己通过 npm 管理扩展。
 COC 扩展使用 npm，因此国内环境建议在 `~/.npmrc` 添加：
 
 ```ini
+registry=https://registry.npmmirror.com/
 coc.nvim:registry=https://registry.npmmirror.com/
 ```
 
-这只影响 COC 的 npm 安装，不改变其他 npm 项目。
+第一行处理扩展依赖安装，第二行处理 COC 自身的扩展下载。只写 `coc.nvim:registry` 时，部分扩展的依赖仍可能从默认 registry 解析并超时。
 
 ## Markdown Preview 安装钩子
 

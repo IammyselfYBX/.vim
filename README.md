@@ -173,7 +173,7 @@ brew install neovim
 2. **CoC 插件问题**
    - 建议使用 Node.js 20/22 LTS，至少确保 >= 14.14
    - GitHub 插件使用 SSH，确认 `ssh -T git@github.com` 可认证
-   - npm 安装超时时在 `~/.npmrc` 配置 `coc.nvim:registry=https://registry.npmmirror.com/`
+   - npm 安装超时时在 `~/.npmrc` 配置 `registry=https://registry.npmmirror.com/` 和 `coc.nvim:registry=https://registry.npmmirror.com/`
    - 运行 `:checkhealth` (Neovim) 检查健康状态
 
 ## 快捷键说明
