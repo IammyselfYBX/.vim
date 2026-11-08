@@ -1,1 +1,1 @@
-/home/yangbx/.config/nvim/.vimrc
+.vimrc

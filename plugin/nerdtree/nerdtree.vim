@@ -30,4 +30,7 @@ let g:NERDTreeBookmarksFile = expand('~/.vim/.NERDTreeBookmarks')
 " autocmd VimEnter * NERDTree 
 
 " 关闭视窗的时候 NerdTree 也同时关闭
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+augroup TonyNERDTree
+  autocmd!
+  autocmd BufEnter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | quit | endif
+augroup END

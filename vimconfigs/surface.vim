@@ -25,25 +25,31 @@ set linebreak                     " 折行不拆分单词
 "------------------------------------------
 set autoindent   	" 开始新的一行自动缩进
 set expandtab     " 将制表符Tab展开成空格
-set tabstop=2     " 一个tab相当于2个空格
-set shiftwidth=4  " 用于自动缩进的空格数
-set et   	" 将tab转成空格
-autocmd FileType python setlocal sw=4 ts=4 et ai
+set tabstop=2       " 一个tab相当于2个空格
+set shiftwidth=2    " 自动缩进使用2个空格
+set softtabstop=2   " 编辑时按Tab也按2个空格处理
+set expandtab       " 将tab转成空格
+augroup TonyPythonIndent
+  autocmd!
+  autocmd FileType python setlocal sw=2 ts=2 sts=2 et ai
+augroup END
 
 "------------------------------------------
 "进入写入模式光标变成竖线
 "https://blog.csdn.net/xiaxzhou/article/details/78515044
 "------------------------------------------
 if has("autocmd")
-  au VimEnter,InsertLeave * silent execute '!echo -ne "\e[2 q"' | redraw!
-  au InsertEnter,InsertChange *
-    \ if v:insertmode == 'i' |
-    \   silent execute '!echo -ne "\e[6 q"' | redraw! |
-    \ elseif v:insertmode == 'r' |
-    \   silent execute '!echo -ne "\e[4 q"' | redraw! |
-    \ endif
-
-  au VimLeave * silent execute '!echo -ne "\e[ q"' | redraw!
+  augroup TonyCursorShape
+    autocmd!
+    au VimEnter,InsertLeave * silent execute '!echo -ne "\e[2 q"' | redraw!
+    au InsertEnter,InsertChange *
+      \ if v:insertmode == 'i' |
+      \   silent execute '!echo -ne "\e[6 q"' | redraw! |
+      \ elseif v:insertmode == 'r' |
+      \   silent execute '!echo -ne "\e[4 q"' | redraw! |
+      \ endif
+    au VimLeave * silent execute '!echo -ne "\e[ q"' | redraw!
+  augroup END
 endif
 
 "------- 高亮 -------------

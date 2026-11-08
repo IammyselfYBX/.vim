@@ -1,5 +1,6 @@
 # vim-plug的插件不包括
 plugged/*
+!plugged/README.md
 .netrwhist
 swap/* 
 undodir/*

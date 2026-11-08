@@ -29,23 +29,24 @@ __   _(_)_ __ ___  _ __ ___   / (_)_ __ (_) |___   _(_)_ __ ___
 ├── autoload       # [自带]vim自启动的脚本
 │   └── plug.vim   # vim-plug插件(考虑到外网下载速度，就已经自带安装到autoload文件夹中)
 ├── colors         # 颜色主题
+├── doc            # 快捷键、命令、插件依赖与 COC 文档
 ├── pack           # 自定义的插件
 │   ├── UtilityPlugin  # 实用工具
-│   │    ├── start # vim开机自启动的插件
-│   │    └── opt   # 手动:packadd加载插件
+│   │    └── opt   # 手动 :packadd 加载插件
 │   │        └── iciba-translate # 金山翻译
 │   │            ├── plugin # 金山翻译插件代码
 │   │            └── syntax # 语法突出显示的 Vim 脚本
 │   └── WebDev      # Web开发工具
-│       ├── start   # vim开机自启动的插件
-│       └── opt     # 手动:packadd加载插件
+│       └── opt     # 手动 :packadd 加载插件
 │           └── vim-live-server # 实时预览
 │               └── plugin # 实时预览插件代码
-├── plugged        # vim-plug 安装的插件(与github同步，不会同步)
+├── plugged        # 插件运行目录，不进入 Git
+│   ├── coc        # COC 扩展与缓存
+│   └── vim-plug   # vim-plug 安装的插件
 ├── plugin         # [自带]vim自启动时加载的插件(这里存放如何设置vim-plug安装的插件)
 ├── swap           # swap文件位置
 ├── .vimrc         # vim的配置文件
-├── init.vim       # neovim的配置文件
+├── init.vim       # Neovim入口，软链接到 .vimrc
 ├── vimconfigs     # vimrc的模块化配置文件
 │   ├── file-setup.vim        # 文件相关的设置
 │   ├── shortcut-key.vim      # 自定义快捷键
@@ -88,7 +89,7 @@ sudo apt-get install nodejs npm ctags cscope
 sudo pacman -S nodejs npm ctags cscope
 ```
 
-4. 打开 Vim/Neovim，插件会自动安装。
+4. 打开 Vim/Neovim 后执行 `:PlugInstall` 安装插件；首次打开不会自动下载全部插件。
 
 ### macOS 安装
 
@@ -121,7 +122,7 @@ brew install cscope
 brew install neovim
 ```
 
-4. 打开 Vim/Neovim，插件会自动安装。
+4. 打开 Vim/Neovim 后执行 `:PlugInstall` 安装插件；首次打开不会自动下载全部插件。
 
 ## 平台特定功能
 
@@ -170,14 +171,24 @@ brew install neovim
    - 检查网络连接，必要时使用代理
 
 2. **CoC 插件问题**
-   - 确保 Node.js 版本 >= 14.14
+   - 建议使用 Node.js 20/22 LTS，至少确保 >= 14.14
+   - GitHub 插件使用 SSH，确认 `ssh -T git@github.com` 可认证
+   - npm 安装超时时在 `~/.npmrc` 配置 `coc.nvim:registry=https://registry.npmmirror.com/`
    - 运行 `:checkhealth` (Neovim) 检查健康状态
 
 ## 快捷键说明
 
 配置已经包含了跨平台的快捷键映射，在 macOS 和 Linux 上使用相同的快捷键。
 
-主要快捷键请参考配置文件：
+完整文档：
+
+- `~/.vim/doc/keymaps.md` - 全部快捷键、插件快捷键与冲突说明
+- `~/.vim/doc/commands.md` - Vim 与插件命令速查
+- `~/.vim/doc/plugins.md` - 插件功能、依赖与安装方式
+- `~/.vim/doc/coc.md` - COC 配置、clangd/ccls 与 ctags 说明
+
+配置源码：
+
 - `~/.vim/vimconfigs/shortcut-key.vim` - 全局快捷键
 - `~/.vim/vimconfigs/compile-run.vim` - 编译运行快捷键
 - `~/.vim/plugin/` - 各插件的快捷键配置

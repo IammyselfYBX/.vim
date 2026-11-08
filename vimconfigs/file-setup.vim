@@ -56,6 +56,9 @@ filetype plugin on
 "============================
 " 文件类别定义
 "===========================
-au BufRead,BufNewFile *.cu,*.cuh set filetype=cuda
-au BufRead,BufNewFile *.tex set filetype=tex "有时虽然是.tex文件结尾但是依旧不识别时tex文件
+augroup TonyFileTypes
+  autocmd!
+  autocmd BufRead,BufNewFile *.cu,*.cuh setfiletype cuda
+  autocmd BufRead,BufNewFile *.tex setfiletype tex
+augroup END
 

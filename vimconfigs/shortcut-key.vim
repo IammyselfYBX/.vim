@@ -9,8 +9,9 @@
 " <C-q> 是退出
 nnoremap <C-q> :q<CR>
 
-" <C-r> 是刷新配置文件
-noremap <C-S-r> :source $MYVIMRC<CR>
+" <C-S-r> 在部分终端不可区分，另外提供 <Leader>r 作为可靠别名
+nnoremap <C-S-r> :source $MYVIMRC<CR>
+nnoremap <Leader>r :source $MYVIMRC<CR>
 
 " <S-u> 是恢复撤销的内容
 " <C-u> 来撤消对整行的修改。

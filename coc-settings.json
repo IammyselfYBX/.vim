@@ -1,39 +1,16 @@
 {
-  "coc.preferences.extensionUpdateCheck":"weekly",
-
-  "snippets.ultisnips.directories":[
-      "UltiSnips",
-      "$HOME/.vim/YBXUltiSnips",
-      "$HOME/.vim/plugged/vim-snippets/UltiSnips"
+  "coc.preferences.extensionUpdateCheck": "weekly",
+  "snippets.ultisnips.directories": [
+    "$HOME/.vim/YBXUltiSnips"
   ],
-
-  "languageserver": {
-    "ccls": {
-      "command": "clangd",
-      "filetypes": ["c", "cc", "cpp", "c++", "objc", "objcpp", "cuda"],
-      "rootPatterns": [".clangd", "compile_commands.json", ".git/", ".hg/"],
-      "initializationOptions": {
-         "cache": {
-           "directory": "/tmp/clangd"
-         },
-         "client":{
-             "snippetSupport": true
-         },
-         "clang": {
-           "extraArgs": [
-             "-std=c++17",
-             "-I/usr/include",
-             "-I/usr/include/c++/11",
-             "-I/usr/include/x86_64-linux-gnu/c++/11",
-             "-I/usr/include/x86_64-linux-gnu"
-           ]
-         }
-       }
-    }
-  },
   "snippets.extends": {
     "cuda": ["c", "cpp"]
   },
-  "snippets.ultisnips.pythonPrompt": false
+  "snippets.ultisnips.pythonPrompt": false,
+  "clangd.arguments": [
+    "--background-index",
+    "--clang-tidy",
+    "--header-insertion=iwyu",
+    "--completion-style=detailed"
+  ]
 }
-

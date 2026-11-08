@@ -8,6 +8,7 @@ let g:livepreview_previewer = 'zathura'
 augroup latex_engine_detect
     autocmd!
     autocmd BufRead,BufNewFile *.tex call s:CheckLatexEngine()
+    autocmd FileType tex setlocal updatetime=1000
 augroup END
 
 function! s:CheckLatexEngine()
@@ -28,9 +29,7 @@ endfunction
 " 禁用光标停留时自动重新编译（避免频繁编译影响性能）"
 let g:livepreview_cursorhold_recompile = 0
 
-" 仅对tex文件类型设置PDF文件刷新频率为1秒
-" 官方推荐值为“1”，单位应是“秒”
-autocmd Filetype tex setl updatetime=1
+" 仅对 tex 文件类型设置刷新检查频率（1000ms）
 "nmap <F12> :LLPStartPreview<cr>
 
 " 这个插件在与UltiSnips一起作为插件安装时，它完全破坏了<C-j>和<C-k>的映射，这里进行修改冲突(其实最坑的是就是不是tex文件这个映射依旧被修改了)

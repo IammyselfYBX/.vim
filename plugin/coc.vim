@@ -4,7 +4,9 @@ let  g:coc_global_extensions = [
   \ 'coc-json',
   \ 'coc-tsserver',
   \ 'coc-vimlsp',
-  \ 'coc-snippets']
+  \ 'coc-snippets',
+  \ 'coc-clangd',
+  \ 'coc-pyright']
 
 
 "允许未保存文件就可以跳转其他文件，但是退出的时候会提醒

@@ -27,7 +27,10 @@ set smartcase 	"智能搜索
 "vim 打开文件位置为上次关闭光标的位置
 "---------------------------------------
 if has("autocmd")
-au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+  augroup TonyRestoreCursor
+    autocmd!
+    au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+  augroup END
 endif
 
 "----------------------------------------
@@ -44,7 +47,10 @@ endif
 "
 "set fdm=indent
 "set foldmethod=indent "代码折叠
-autocmd BufRead * normal zR " 默认打开新文件折叠全部打开
+augroup TonyOpenFolds
+  autocmd!
+  autocmd BufRead * normal zR " 默认打开新文件折叠全部打开
+augroup END
 " zc  折叠
 " zC  对所在范围内所有嵌套的折叠点进行折叠
 " zo  展开折叠
