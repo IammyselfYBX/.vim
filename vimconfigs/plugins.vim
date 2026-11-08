@@ -5,6 +5,13 @@ let g:plug_url_format = 'git@github.com:%s.git'
 let g:coc_config_home = expand('~/.vim')
 let g:coc_data_home = expand('~/.vim/plugged/coc')
 
+" 优先使用用户目录中的 Node；没有时回退到系统 node/npm
+let s:local_node_bin = expand('~/.local/opt/node/bin')
+if executable(s:local_node_bin . '/node')
+  let g:coc_node_path = s:local_node_bin . '/node'
+  let $PATH = s:local_node_bin . ':' . $PATH
+endif
+
 function! s:InstallMarkdownPreview()
   if !executable('node') || !executable('npm')
     echohl WarningMsg

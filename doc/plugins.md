@@ -90,6 +90,29 @@ sudo pacman -S the_silver_searcher
 npm install -g live-server browser-sync
 ```
 
+## Node.js 运行策略
+
+COC 当前 release 构建使用现代 JavaScript 语法，Node 14.9 无法解析 `??=`，因此不能只满足 `package.json` 中的最低版本声明。
+
+本配置优先使用用户目录安装的 Node：
+
+```text
+~/.local/opt/node/bin/node
+~/.local/opt/node/bin/npm
+```
+
+配置中会条件启用：
+
+```vim
+let s:local_node_bin = expand('~/.local/opt/node/bin')
+if executable(s:local_node_bin . '/node')
+  let g:coc_node_path = s:local_node_bin . '/node'
+  let $PATH = s:local_node_bin . ':' . $PATH
+endif
+```
+
+其他机器没有该目录时自动使用系统 Node。推荐 Node 20/22/24 LTS，不建议继续使用 Node 14。
+
 ## COC 扩展
 
 `plugin/coc.vim` 当前自动安装：
