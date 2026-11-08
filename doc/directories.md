@@ -2,7 +2,7 @@
 
 ## `autoload/`
 
-`autoload/` 存放 Vim 按需加载的脚本。
+`autoload/` 存放 Vim/Neovim 按需加载的脚本。
 
 当前只有：
 
@@ -10,84 +10,82 @@
 autoload/plug.vim
 ```
 
-这是 vim-plug 本体。`vimconfigs/plugins.vim` 中的 `plug#begin()`、`Plug`、`plug#end()` 都由它实现。
+这是 vim-plug 本体。`configs/vim/plugins.vim` 和 `configs/neovim/plugins.lua` 中的 `plug#begin()`、`Plug`、`plug#end()` 都由它实现。
 
 特点：
 
-- Vim 启动时不会完整执行所有函数，而是在调用 `plug#...` 时加载。
 - 不要直接修改这个文件。
-- 更新 vim-plug 应使用 `:PlugUpdate`，不要手工覆盖。
-- 如果删除它，下一次启动会尝试从 GitHub 下载。
+- 更新 vim-plug 使用 `:PlugUpdate`。
+- 删除它以后，下一次启动会尝试从 GitHub 下载。
+- 只保留一个文件是 vim-plug 的正常官方结构，不需要拆成多个文件。
 
-## `ignore_count.txt`
+## `autoload/plug.vim` 的优化空间
 
-这是之前 `main` 二进制程序的忽略目录配置，用于统计代码行数时排除：
+只保留一个 `plug.vim` 本身不是性能问题。真正影响启动速度的是插件的加载数量和加载时机。
 
-```text
-autoload
-colors
-pack
-plugged
-swap
-.git
-undodir
-README.md
-```
+可选优化方案：
 
-`main` 已经从 Git 仓库移除，因此 `ignore_count.txt` 目前是孤立文件，不再被 Vim 或任何插件读取。
+1. 对 Tagbar、UndoTree 等插件使用 `on` 延迟加载。
+2. 对 Markdown、LaTeX 等插件使用 `for` 按文件类型加载。
+3. 对 fzf 命令使用 `on` 或 `cmd` 延迟加载。
+4. 用 `vim --startuptime /tmp/vim-startup.log` 找到实际耗时最高的插件。
+5. Neovim 可以单独使用 lazy.nvim；Vim 继续使用 vim-plug。
 
-它现在可以安全删除；保留也不会影响 Vim。
+不建议把 `autoload/plug.vim` 手工拆分。那样会增加升级和维护成本，但启动速度提升通常很小。
 
-## `coc-settings.json.back`
+## `configs/`
 
-这是 `coc-settings.json` 的旧备份，不会被 COC 自动加载。
-
-真正的用户配置是：
+`configs/` 分为 Vim 和 Neovim 两套入口配置。
 
 ```text
-~/.vim/coc-settings.json
+configs/
+├── vim/
+│   ├── shortcut-key.vim
+│   ├── surface.vim
+│   ├── file-setup.vim
+│   ├── split-screen.vim
+│   ├── customize.vim
+│   ├── my-function.vim
+│   ├── terminal-emulator.vim
+│   ├── plugins.vim
+│   ├── programming-environment.vim
+│   ├── compile-run.vim
+│   └── debug.vim
+└── neovim/
+    ├── init.lua
+    ├── plugins.lua
+    └── presenting.lua
 ```
 
-`coc-settings.json.back` 只在需要手动对比旧配置时有用。确认旧内容不再需要后可以删除。
+### `configs/vim/`
 
-## `vimconfigs/`
-
-这是本配置的主要模块目录，由 `.vimrc` 按顺序 `source`。
+这是 Vim 的主要配置目录，由 `/home/tony/.vim/.vimrc` 加载。
 
 | 文件 | 作用 |
 |---|---|
-| `shortcut-key.vim` | 全局快捷键、Leader、保存、退出、配置刷新 |
-| `surface.vim` | 主题、缩进、换行、行号、光标形状 |
+| `shortcut-key.vim` | 全局快捷键、Leader、保存、退出、刷新配置、全文缩进 |
+| `surface.vim` | 主题、缩进、换行、光标形状 |
 | `file-setup.vim` | 编码、swap、undo、文件类型 |
 | `split-screen.vim` | 分屏与窗口切换 |
-| `customize.vim` | 搜索、折叠、括号补全、tab 操作 |
+| `customize.vim` | 搜索、折叠、括号补全、tab |
 | `my-function.vim` | 自定义函数和命令，例如 `:ClearSwapdir` |
-| `terminal-emulator.vim` | 内置终端快捷键 |
-| `plugins.vim` | vim-plug、插件声明、COC 目录、Node 路径 |
-| `programming-environment.vim` | C、Ctags、Cscope、Python 编程环境说明 |
+| `terminal-emulator.vim` | Vim 内置终端快捷键 |
+| `plugins.vim` | Vim 的 vim-plug 声明、COC 目录、Node 路径 |
+| `programming-environment.vim` | Ctags、Cscope、编程环境说明 |
 | `compile-run.vim` | 编译、运行、CMake、Conda、CUDA、Markdown/TeX 预览 |
 | `debug.vim` | F8 编译并启动 Termdebug |
-| `plugins.lua` | 预留的 Neovim/Lua 配置，目前为空 |
 
-### 加载顺序
+### `configs/neovim/`
 
-`/home/tony/.vim/.vimrc` 中的顺序是：
+这是 Neovim 的 Lua 配置目录，由 `/home/tony/.vim/init.vim` 加载。
 
-```text
-shortcut-key
-surface
-file-setup
-split-screen
-customize
-my-function
-terminal-emulator
-plugins
-programming-environment
-compile-run
-debug
-```
+| 文件 | 作用 |
+|---|---|
+| `init.lua` | Neovim 总入口，设置目录、Node、Python、共享配置加载顺序 |
+| `plugins.lua` | Neovim 的 vim-plug 插件声明 |
+| `presenting.lua` | presenting.nvim、nvim-treesitter、treesitter-context |
 
-后加载的文件可以覆盖前面的映射，例如 `plugin/` 中的 COC 配置会在 `.vimrc` 之后加载，所以 `<C-h>` 最终由 COC 显示文档接管。
+Neovim 会复用 `configs/vim/` 中的通用行为模块，避免把编译、调试和快捷键函数复制两份。Neovim 专属插件和 Lua 初始化放在 `configs/neovim/`。
 
 ## `pack/`
 
@@ -160,7 +158,7 @@ F3
 ## `plugged/`
 
 ```text
-plugged/vim-plug/   # vim-plug 插件
+plugged/vim-plug/   # vim-plug 管理的插件
 plugged/coc/        # COC 扩展和数据
 ```
 
@@ -170,13 +168,13 @@ plugged/coc/        # COC 扩展和数据
 
 | 文件 | 作用 |
 |---|---|
-| `.vimrc` | 主配置入口 |
-| `init.vim` | 指向 `.vimrc` 的 Neovim 入口 |
+| `.vimrc` | Vim 主配置入口；Neovim 调用时会转到 Lua 入口 |
+| `init.vim` | Neovim 入口，执行 `configs/neovim/init.lua` |
 | `README.md` | 仓库总览 |
 | `coc-settings.json` | COC 用户配置 |
 | `colors/` | 配色方案 |
-| `plugin/` | Vim 启动时自动加载的插件配置 |
-| `doc/` | 快捷键、命令、插件与目录文档 |
+| `plugin/` | Vim/Neovim 启动时自动加载的插件配置 |
+| `doc/` | 快捷键、命令、插件、COC 和目录文档 |
 | `YBXUltiSnips/` | 自定义代码片段 |
 | `swap/` | swap 文件 |
 | `undodir/` | 持久化撤销历史 |

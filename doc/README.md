@@ -8,17 +8,19 @@
 - [命令速查](commands.md)：Vim、vim-plug、COC、fzf、ALE、Tagbar 等命令。
 - [插件说明](plugins.md)：插件功能、依赖、安装方式和当前机器状态。
 - [COC 与语言服务器](coc.md)：COC 配置目录、clangd/ccls 选择和 ctags 的关系。
-- [目录与文件说明](directories.md)：`autoload`、`vimconfigs`、`pack`、备份文件等逐项说明。
+- [目录与文件说明](directories.md)：`autoload`、`configs`、`pack` 等逐项说明。
 
 ## 目录约定
 
 ```text
 ~/.vim/
 ├── .vimrc                 # 主入口
-├── init.vim -> .vimrc     # Neovim 入口
+├── init.vim               # Neovim Lua 入口
 ├── autoload/              # vim-plug 自举文件
 ├── colors/                # 配色方案
-├── vimconfigs/            # 可读、可维护的配置模块
+├── configs/
+│   ├── vim/               # Vimscript 配置模块
+│   └── neovim/            # Neovim Lua 配置模块
 ├── plugin/                # Vim 启动时加载的插件配置
 ├── pack/                  # Vim 原生 opt 插件
 ├── plugged/
@@ -90,9 +92,10 @@ let g:coc_data_home = expand('~/.vim/plugged/coc')
 
 ## 维护规则
 
-1. 修改 Vim 配置时优先改 `vimconfigs/`。
-2. 插件专属配置放 `plugin/`。
-3. 新增快捷键后同步更新 `doc/keymaps.md`。
-4. 新增插件后同步更新 `doc/plugins.md` 中的功能、依赖和安装方式。
-5. `autocmd` 必须放进带 `autocmd!` 的 `augroup`，避免重复 `:source` 后重复注册。
-6. 系统剪贴板没有启用是有意选择；终端中继续使用 `Ctrl+Shift+C/V`。
+1. 修改 Vim 行为时优先改 `configs/vim/`。
+2. 修改 Neovim 专属行为时改 `configs/neovim/`。
+3. 插件专属配置放 `plugin/`。
+4. 新增快捷键后同步更新 `doc/keymaps.md`。
+5. 新增插件后同步更新 `doc/plugins.md` 中的功能、依赖和安装方式。
+6. `autocmd` 必须放进带 `autocmd!` 的 `augroup`，避免重复 `:source` 后重复注册。
+7. 系统剪贴板没有启用是有意选择；终端中继续使用 `Ctrl+Shift+C/V`。

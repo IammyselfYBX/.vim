@@ -132,7 +132,7 @@ let g:coc_global_extensions = [
 
 ## 6. 当前配置：全部使用 clangd
 
-当前机器同时安装了 clangd 23.1.1 和 ccls 0.20250815.1。默认配置使用：
+当前机器已移除 ccls，只保留 clangd 23.1.1。默认配置使用：
 
 ```text
 coc-clangd + clangd
@@ -140,7 +140,7 @@ coc-clangd + clangd
 
 同时，`plugin/ale.vim` 已将 C/C++/CUDA 的 ALE linter 设为空列表，由 COC 的 clangd 统一负责诊断和导航。这样不会同时启动 clangd 与 ccls，也不会重复检查同一个文件。
 
-因此，当前配置不再依赖 ccls。确认其他工具也不需要 ccls 后，可以从系统中移除 ccls。移除 ccls 不会提升 Vim 启动速度；它只影响 ccls 语言服务器本身，减少的是磁盘占用和潜在资源占用。
+因此，当前配置不再依赖 ccls，系统 ccls 已经移除。移除 ccls 不会提升 Vim 启动速度；它只影响 ccls 语言服务器本身，减少的是磁盘占用和潜在资源占用。
 
 clangd 并不在所有方面都绝对优于 ccls。ccls 仍有大型项目索引和 CUDA 工程方面的优势；但对当前单机日常 C/C++/CUDA 使用，clangd 的官方维护、诊断和配置体验更适合作为唯一 LSP。
 

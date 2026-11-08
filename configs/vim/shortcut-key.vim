@@ -9,8 +9,7 @@
 " <C-q> 是退出
 nnoremap <C-q> :q<CR>
 
-" <C-S-r> 在部分终端不可区分，另外提供 <Leader>r 作为可靠别名
-nnoremap <C-S-r> :source $MYVIMRC<CR>
+" 刷新配置
 nnoremap <Leader>r :source $MYVIMRC<CR>
 
 " <S-u> 是恢复撤销的内容
@@ -58,6 +57,9 @@ inoremap <C-d> <ESC>ddi
 " ==当前数字+1(因为+还需要按Shift，就改成==)
 noremap -- <C-x>
 noremap == <C-a>
+
+" 按当前缩进规则重新缩进整个文件
+nnoremap <Leader>= gg=G
 
 " 设置Leader键为 空格
 let mapleader = "\<space>"

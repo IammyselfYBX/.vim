@@ -29,6 +29,9 @@ __   _(_)_ __ ___  _ __ ___   / (_)_ __ (_) |___   _(_)_ __ ___
 ├── autoload       # [自带]vim自启动的脚本
 │   └── plug.vim   # vim-plug插件(考虑到外网下载速度，就已经自带安装到autoload文件夹中)
 ├── colors         # 颜色主题
+├── configs        # 分平台配置
+│   ├── vim        # Vimscript 配置模块
+│   └── neovim     # Neovim Lua 配置
 ├── doc            # 快捷键、命令、插件依赖与 COC 文档
 ├── pack           # 自定义的插件
 │   ├── UtilityPlugin  # 实用工具
@@ -46,17 +49,7 @@ __   _(_)_ __ ___  _ __ ___   / (_)_ __ (_) |___   _(_)_ __ ___
 ├── plugin         # [自带]vim自启动时加载的插件(这里存放如何设置vim-plug安装的插件)
 ├── swap           # swap文件位置
 ├── .vimrc         # vim的配置文件
-├── init.vim       # Neovim入口，软链接到 .vimrc
-├── vimconfigs     # vimrc的模块化配置文件
-│   ├── file-setup.vim        # 文件相关的设置
-│   ├── shortcut-key.vim      # 自定义快捷键
-│   ├── split-screen.vim      # 分屏相关的设置
-│   ├── surface.vim           # 外观相关的设置
-│   ├── customize.vim         # 其余不能归类的个性化设置
-│   ├── plugins.vim           # 插件管理
-│   ├── terminal-emulator.vim # 终端模拟器的配置
-│   ├── compile-run.vim       # 编程的编译与执行相关的配置
-│   └── debug.vim             # 编程调试的配置
+├── init.vim       # Neovim入口，加载 configs/neovim/init.lua
 ├── YBXUltiSnips   # 自定义的snippets片段
 └── undodir        # 重新打开文件依旧可以撤销之前的编辑的缓存文件
 ```
@@ -77,7 +70,7 @@ ln -s ~/.vim/.vimrc ~/.vimrc
 
 # For Neovim
 mkdir -p ~/.config/nvim
-ln -s ~/.vim/.vimrc ~/.config/nvim/init.vim
+ln -s ~/.vim/init.vim ~/.config/nvim/init.vim
 ```
 
 3. 安装依赖：
@@ -105,7 +98,7 @@ ln -s ~/.vim/.vimrc ~/.vimrc
 
 # For Neovim
 mkdir -p ~/.config/nvim
-ln -s ~/.vim/.vimrc ~/.config/nvim/init.vim
+ln -s ~/.vim/init.vim ~/.config/nvim/init.vim
 ```
 
 3. 安装依赖（使用 Homebrew）：
@@ -190,8 +183,9 @@ brew install neovim
 
 配置源码：
 
-- `~/.vim/vimconfigs/shortcut-key.vim` - 全局快捷键
-- `~/.vim/vimconfigs/compile-run.vim` - 编译运行快捷键
+- `~/.vim/configs/vim/shortcut-key.vim` - 全局快捷键
+- `~/.vim/configs/vim/compile-run.vim` - 编译运行快捷键
+- `~/.vim/configs/neovim/` - Neovim Lua 配置
 - `~/.vim/plugin/` - 各插件的快捷键配置
 
 

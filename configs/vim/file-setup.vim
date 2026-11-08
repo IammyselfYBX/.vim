@@ -23,14 +23,7 @@ noremap <SPACE><SPACE> <Esc>/<++><CR>:nohlsearch<CR>4cl
 if !filewritable(expand('~/.vim/swap'))    " 判断文件是否存在"
     silent exec "!mkdir -p ~/.vim/swap"
 endif
-" set directory=$HOME/.vim/swap//
-if has('nvim')
-  " This is Neovim
-  set dir=$HOME/.vim/swap//
-else
-  " This is Vim
-  set directory=$HOME/.vim/swap//
-endif
+set directory=$HOME/.vim/swap//
 
 
 "==============================

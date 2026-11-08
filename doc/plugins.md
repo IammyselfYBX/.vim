@@ -23,7 +23,7 @@ let g:plug_url_format = 'git@github.com:%s.git'
 
 | 插件 | 功能 | 配置文件 | 外部依赖 |
 |---|---|---|---|
-| vim-plug | 插件管理器 | `autoload/plug.vim`、`vimconfigs/plugins.vim` | git、curl；首次安装需要网络 |
+| vim-plug | 插件管理器 | `autoload/plug.vim`、`configs/vim/plugins.vim`、`configs/neovim/plugins.lua` | git、curl；首次安装需要网络 |
 | vim-airline | 状态栏 | `plugin/airline.vim` | 无；Nerd Font 可选 |
 | vim-rainbow | 彩虹括号 | `plugin/vim-rainbow.vim` | 无 |
 | NERDTree | 文件树 | `plugin/nerdtree/nerdtree.vim` | Vim；Git 状态插件需要 git |
@@ -41,7 +41,7 @@ let g:plug_url_format = 'git@github.com:%s.git'
 | vim-table-mode | Markdown/文本表格编辑 | `plugin/markdown/vim-table-mode.vim` | 无 |
 | glow.vim | 终端渲染 Markdown | 无独立配置 | glow 可执行文件 |
 | undotree | 撤销历史可视化 | `plugin/undotree.vim` | Vim `+persistent_undo` |
-| presenting.nvim | Neovim 幻灯片 | `plugin/markdown/presenting.lua` | Neovim |
+| presenting.nvim | Neovim 幻灯片 | `configs/neovim/presenting.lua` | Neovim |
 | nvim-treesitter | Neovim 语法高亮 | Neovim 配置 | Neovim、tree-sitter 编译器 |
 | vim-latex-live-preview | LaTeX 实时预览 | `plugin/latex/vim-latex-live-preview.vim` | latexmk/xelatex、zathura；当前插件声明被注释 |
 | vim-live-server | HTML/CSS/JS 热更新 | `pack/WebDev/opt/vim-live-server` | Node.js、live-server/browser-sync |
@@ -55,7 +55,9 @@ let g:plug_url_format = 'git@github.com:%s.git'
 sudo pacman -S git curl nodejs npm
 sudo pacman -S fzf ripgrep
 sudo pacman -S ctags
-sudo pacman -S clang ccls
+sudo pacman -S clang
+# 仅在需要切换到 ccls 时安装
+# sudo pacman -S ccls
 sudo pacman -S glow
 sudo pacman -S zathura zathura-pdf-poppler
 sudo pacman -S texlive-core texlive-latexextra

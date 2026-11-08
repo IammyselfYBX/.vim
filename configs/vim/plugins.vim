@@ -73,16 +73,8 @@ call plug#begin('~/.vim/plugged/vim-plug')
   Plug 'dhruvasagar/vim-table-mode', {'for': 'markdown'}
 
   " Glow 存在时才启用，避免无依赖机器出现无效插件
-  if !has('nvim') && executable('glow')
+  if executable('glow')
     Plug 'jclsn/glow.vim'
-  endif
-
-  " Neovim 专用配置
-  if has('nvim')
-    Plug 'sotte/presenting.nvim'
-    luafile ~/.vim/plugin/markdown/presenting.lua
-    Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-    Plug 'nvim-treesitter/nvim-treesitter-context'
   endif
 
   " 撤销树
@@ -93,8 +85,3 @@ call plug#begin('~/.vim/plugged/vim-plug')
   " Plug 'wolandark/vim-live-server'
   " Plug 'github/copilot.vim'
 call plug#end()
-
-if has('nvim')
-  let s:nvim_python = expand('~/.venv/nvim-python/bin/python3')
-  let g:python3_host_prog = executable(s:nvim_python) ? s:nvim_python : exepath('python3')
-endif
