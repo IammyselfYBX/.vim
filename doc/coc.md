@@ -108,7 +108,7 @@ coc.nvim:registry=https://registry.npmmirror.com/
 
 1. 系统保留 `ccls` 可执行文件。
 2. COC 使用 `coc-ccls`，不要同时启用 `coc-clangd`。
-3. ALE 的 C/C++ linter 继续使用 `ccls`，或换成其他非 clangd linter。
+3. ALE 的 C/C++ linter 继续使用 `ccls`，或保持为空，避免重复诊断。
 4. `coc-settings.json` 中不要再保留指向 clangd 的配置。
 
 示例：
@@ -130,7 +130,7 @@ let g:coc_global_extensions = [
 - 只会减少磁盘占用。
 - 如果某个项目在 ccls 下索引异常，clangd 可以作为回退。
 
-## 6. 为什么当前仍默认 clangd
+## 6. 当前配置：全部使用 clangd
 
 当前机器同时安装了 clangd 23.1.1 和 ccls 0.20250815.1。默认配置使用：
 
@@ -138,7 +138,11 @@ let g:coc_global_extensions = [
 coc-clangd + clangd
 ```
 
-同时 ALE 保留 ccls/gcc 作为检查器。这样两套能力都能使用，但也会产生重复检查。若追求轻量，建议二选一，不要同时让 COC clangd 和 ALE ccls 处理同一个文件。
+同时，`plugin/ale.vim` 已将 C/C++/CUDA 的 ALE linter 设为空列表，由 COC 的 clangd 统一负责诊断和导航。这样不会同时启动 clangd 与 ccls，也不会重复检查同一个文件。
+
+因此，当前配置不再依赖 ccls。确认其他工具也不需要 ccls 后，可以从系统中移除 ccls。移除 ccls 不会提升 Vim 启动速度；它只影响 ccls 语言服务器本身，减少的是磁盘占用和潜在资源占用。
+
+clangd 并不在所有方面都绝对优于 ccls。ccls 仍有大型项目索引和 CUDA 工程方面的优势；但对当前单机日常 C/C++/CUDA 使用，clangd 的官方维护、诊断和配置体验更适合作为唯一 LSP。
 
 ## 7. ctags 与 COC 的关系
 

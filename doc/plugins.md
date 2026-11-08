@@ -30,7 +30,7 @@ let g:plug_url_format = 'git@github.com:%s.git'
 | nerdtree-git-plugin | 文件树 Git 状态 | `plugin/nerdtree/nerdtree-git.vim` | git |
 | Tagbar | 函数/类/变量符号列表 | `plugin/tagbar.vim` | Universal Ctags |
 | AsyncRun | 异步命令、编译和 Quickfix | `plugin/asyncrun.vim` | Vim `+job`/`+terminal` |
-| ALE | 异步语法检查 | `plugin/ale.vim` | 可选外部 linter，如 gcc、ccls、clangd |
+| ALE | 异步语法检查；C/C++/CUDA 当前交给 COC clangd | `plugin/ale.vim` | 其他语言按需配置 linter |
 | coc.nvim | 补全、LSP、诊断、代码操作 | `plugin/coc.vim`、`coc-settings.json` | Node.js、npm |
 | coc-clangd | clangd 的 COC 客户端 | COC 扩展目录 | clangd 可执行文件 |
 | coc-pyright | Python 类型检查与补全 | COC 扩展目录 | Node.js；Python 解释器可选 |
