@@ -23,7 +23,7 @@ let g:plug_url_format = 'git@github.com:%s.git'
 
 | 插件 | 功能 | 配置文件 | 外部依赖 |
 |---|---|---|---|
-| vim-plug | 插件管理器 | `autoload/plug.vim`、`configs/vim/plugins.vim`、`configs/neovim/plugins.lua` | git、curl；首次安装需要网络 |
+| vim-plug | 插件管理器 | `autoload/plug.vim`、`configs/vim/plugins.vim` | git、curl；首次安装需要网络 |
 | vim-airline | 状态栏 | `plugin/airline.vim` | 无；Nerd Font 可选 |
 | vim-rainbow | 彩虹括号 | `plugin/vim-rainbow.vim` | 无 |
 | NERDTree | 文件树 | `plugin/nerdtree/nerdtree.vim` | Vim；Git 状态插件需要 git |

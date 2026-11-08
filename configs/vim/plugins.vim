@@ -80,8 +80,20 @@ call plug#begin('~/.vim/plugged/vim-plug')
   " 撤销树
   Plug 'mbbill/undotree'
 
+  " Neovim 专属插件；Vim 启动时不会声明
+  if has('nvim')
+    Plug 'sotte/presenting.nvim'
+    Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+    Plug 'nvim-treesitter/nvim-treesitter-context'
+  endif
+
   " 可选插件，需要时再启用
   " Plug 'xuhdev/vim-latex-live-preview', {'for': 'tex'}
   " Plug 'wolandark/vim-live-server'
   " Plug 'github/copilot.vim'
 call plug#end()
+
+if has('nvim')
+  let s:nvim_python = expand('~/.venv/nvim-python/bin/python3')
+  let g:python3_host_prog = executable(s:nvim_python) ? s:nvim_python : exepath('python3')
+endif

@@ -15,7 +15,8 @@
 ```text
 ~/.vim/
 ├── .vimrc                 # 主入口
-├── init.vim               # Neovim Lua 入口
+├── init.lua               # Neovim 主入口
+├── init.vim               # Neovim 兼容入口
 ├── autoload/              # vim-plug 自举文件
 ├── colors/                # 配色方案
 ├── configs/

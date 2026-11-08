@@ -1,11 +1,6 @@
 " YBX Vim configuration entry
-" Vim:    configs/vim/*.vim
-" Neovim: configs/neovim/*.lua
-
-if has('nvim')
-  execute "lua dofile(vim.fn.expand('~/.vim/configs/neovim/init.lua'))"
-  finish
-endif
+" 通用行为与插件声明统一使用 configs/vim/*.vim
+" Neovim 在 init.vim 中先加载本文件，再加载 configs/neovim/*.lua
 
 " 自定义快捷键
 source ~/.vim/configs/vim/shortcut-key.vim

@@ -49,7 +49,8 @@ __   _(_)_ __ ___  _ __ ___   / (_)_ __ (_) |___   _(_)_ __ ___
 ├── plugin         # [自带]vim自启动时加载的插件(这里存放如何设置vim-plug安装的插件)
 ├── swap           # swap文件位置
 ├── .vimrc         # vim的配置文件
-├── init.vim       # Neovim入口，加载 configs/neovim/init.lua
+├── init.lua       # Neovim主入口：共享 Vimscript + Lua 专属配置
+├── init.vim       # Neovim兼容入口
 ├── YBXUltiSnips   # 自定义的snippets片段
 └── undodir        # 重新打开文件依旧可以撤销之前的编辑的缓存文件
 ```
@@ -70,7 +71,7 @@ ln -s ~/.vim/.vimrc ~/.vimrc
 
 # For Neovim
 mkdir -p ~/.config/nvim
-ln -s ~/.vim/init.vim ~/.config/nvim/init.vim
+ln -s ~/.vim/init.lua ~/.config/nvim/init.lua
 ```
 
 3. 安装依赖：
@@ -98,7 +99,7 @@ ln -s ~/.vim/.vimrc ~/.vimrc
 
 # For Neovim
 mkdir -p ~/.config/nvim
-ln -s ~/.vim/init.vim ~/.config/nvim/init.vim
+ln -s ~/.vim/init.lua ~/.config/nvim/init.lua
 ```
 
 3. 安装依赖（使用 Homebrew）：

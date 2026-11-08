@@ -10,7 +10,7 @@
 autoload/plug.vim
 ```
 
-这是 vim-plug 本体。`configs/vim/plugins.vim` 和 `configs/neovim/plugins.lua` 中的 `plug#begin()`、`Plug`、`plug#end()` 都由它实现。
+这是 vim-plug 本体。`configs/vim/plugins.vim` 中的 `plug#begin()`、`Plug`、`plug#end()` 都由它实现；Vim 和 Neovim 共用这一份插件声明。
 
 特点：
 
@@ -53,7 +53,6 @@ configs/
 │   └── debug.vim
 └── neovim/
     ├── init.lua
-    ├── plugins.lua
     └── presenting.lua
 ```
 
@@ -77,15 +76,14 @@ configs/
 
 ### `configs/neovim/`
 
-这是 Neovim 的 Lua 配置目录，由 `/home/tony/.vim/init.vim` 加载。
+这是 Neovim 的 Lua 专属配置目录。根级 `/home/tony/.vim/init.lua` 先加载共享的 `.vimrc`，再加载这里的 Lua 文件，因此不需要把 Vimscript 重写一遍。
 
 | 文件 | 作用 |
 |---|---|
-| `init.lua` | Neovim 总入口，设置目录、Node、Python、共享配置加载顺序 |
-| `plugins.lua` | Neovim 的 vim-plug 插件声明 |
+| `init.lua` | Neovim 专属 Lua 入口 |
 | `presenting.lua` | presenting.nvim、nvim-treesitter、treesitter-context |
 
-Neovim 会复用 `configs/vim/` 中的通用行为模块，避免把编译、调试和快捷键函数复制两份。Neovim 专属插件和 Lua 初始化放在 `configs/neovim/`。
+Neovim 会复用 `configs/vim/` 中的全部通用行为与插件声明，避免把编译、调试、快捷键和插件列表复制两份。`configs/neovim/` 只保留必须使用 Lua 的 Neovim 专属逻辑。
 
 ## `pack/`
 
@@ -169,7 +167,8 @@ plugged/coc/        # COC 扩展和数据
 | 文件 | 作用 |
 |---|---|
 | `.vimrc` | Vim 主配置入口；Neovim 调用时会转到 Lua 入口 |
-| `init.vim` | Neovim 入口，执行 `configs/neovim/init.lua` |
+| `init.lua` | Neovim 主入口，加载共享 `.vimrc` 后执行 `configs/neovim/init.lua` |
+| `init.vim` | Neovim 兼容入口，转到 `init.lua` |
 | `README.md` | 仓库总览 |
 | `coc-settings.json` | COC 用户配置 |
 | `colors/` | 配色方案 |
