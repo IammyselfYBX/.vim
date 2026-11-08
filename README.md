@@ -46,6 +46,7 @@ __   _(_)_ __ ___  _ __ ___   / (_)_ __ (_) |___   _(_)_ __ ___
 ├── plugged        # 插件运行目录，不进入 Git
 │   ├── coc        # COC 扩展与缓存
 │   └── vim-plug   # vim-plug 安装的插件
+├── script         # 环境检查与辅助脚本
 ├── plugin         # [自带]vim自启动时加载的插件(这里存放如何设置vim-plug安装的插件)
 ├── swap           # swap文件位置
 ├── .vimrc         # vim的配置文件
@@ -188,5 +189,12 @@ brew install neovim
 - `~/.vim/configs/vim/compile-run.vim` - 编译运行快捷键
 - `~/.vim/configs/neovim/` - Neovim Lua 配置
 - `~/.vim/plugin/` - 各插件的快捷键配置
+
+环境检查：
+
+```bash
+~/.vim/script/check-env.sh
+~/.vim/script/check-env.sh --network
+```
 
 

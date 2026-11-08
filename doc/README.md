@@ -28,6 +28,7 @@
 │   ├── coc/               # COC 扩展、MRU 和缓存
 │   ├── vim-plug/          # vim-plug 管理的插件
 │   └── README.md          # 目录约定说明
+├── script/                # 环境检查脚本
 ├── doc/                   # 本套文档
 ├── YBXUltiSnips/          # 自定义 snippet
 ├── swap/                  # swap 文件

@@ -148,3 +148,21 @@
 | `:messages` | 查看消息历史 |
 | `:set` / `:setlocal` | 查看或设置选项 |
 | `:checkhealth` | Neovim 健康检查，Vim 不支持 |
+
+## 10. 环境检查脚本
+
+```bash
+~/.vim/script/check-env.sh
+```
+
+检查 GitHub 和 npmmirror：
+
+```bash
+~/.vim/script/check-env.sh --network
+```
+
+把 Neovim 也作为必需项：
+
+```bash
+~/.vim/script/check-env.sh --require-neovim
+```

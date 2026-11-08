@@ -162,6 +162,39 @@ plugged/coc/        # COC 扩展和数据
 
 这两个目录由插件管理器创建，不进入 Git。
 
+## `script/`
+
+环境检查脚本放在这里：
+
+```text
+script/check-env.sh
+```
+
+用途：
+
+- 检查 Vim / Neovim
+- 检查 Vim 编译特性
+- 检查插件目录和 COC 扩展
+- 检查 Node.js、npm、clangd、ctags
+- 检查 Conda、Conda 环境
+- 检查 LaTeX、CUDA、Glow、live-server 等可选依赖
+- 汇总必需依赖和可选依赖的缺失项
+
+用法：
+
+```bash
+~/.vim/script/check-env.sh
+~/.vim/script/check-env.sh --network
+~/.vim/script/check-env.sh --require-neovim
+VIM_ROOT=/path/to/.vim ~/.vim/script/check-env.sh
+```
+
+返回码：
+
+- `0`：所有必需依赖都已安装
+- `1`：存在必需依赖缺失
+- `2`：参数错误
+
 ## 其他顶层文件
 
 | 文件 | 作用 |
