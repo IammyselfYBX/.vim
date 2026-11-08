@@ -8,6 +8,7 @@
 - [命令速查](commands.md)：Vim、vim-plug、COC、fzf、ALE、Tagbar 等命令。
 - [插件说明](plugins.md)：插件功能、依赖、安装方式和当前机器状态。
 - [COC 与语言服务器](coc.md)：COC 配置目录、clangd/ccls 选择和 ctags 的关系。
+- [目录与文件说明](directories.md)：`autoload`、`vimconfigs`、`pack`、备份文件等逐项说明。
 
 ## 目录约定
 

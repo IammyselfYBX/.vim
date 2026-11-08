@@ -23,7 +23,7 @@ noremap <C-M-up> :res +5 <CR>
 noremap <C-M-down> :res -5 <CR> 
 
 "分屏移动光标
-noremap <C-h> <C-w>h "跳转到左边的窗口
+"<C-h> 保留给 COC 显示文档，不再用于切换左窗口
 noremap <C-j> <C-w>j "跳转到下边的窗口
 noremap <C-k> <C-w>k "跳转到上边的窗口
 noremap <C-l> <C-w>l "跳转到右边的窗口
@@ -37,4 +37,4 @@ noremap sv <C-w>t<C-w>H "横变竖
 noremap sh <C-w>t<C-w>K "竖变横
 
 "左右互换，上下互换
-noremap sr <C-w>r 
+noremap sr <C-w>r

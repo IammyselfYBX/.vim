@@ -50,9 +50,9 @@ inoremap <C-d> <ESC>ddi
 " <C-p> 是粘帖剪切的行
 "inoremap <C-p> <ESC>pi
 " set pastetoggle=<F3> "按<F3>进入粘帖模式,在按<F3>退出粘帖模式
-" <C-a> 全选
-inoremap <C-a> <ESC>ggVG
-noremap <C-a> <ESC>ggVG
+" <C-a> 不覆盖，恢复 Vim 原生行为
+" Normal 模式: 增加光标下数字
+" Insert 模式: 插入上一次插入的文本
 
 " --当前数字-1
 " ==当前数字+1(因为+还需要按Shift，就改成==)

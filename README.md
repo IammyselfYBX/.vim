@@ -186,6 +186,7 @@ brew install neovim
 - `~/.vim/doc/commands.md` - Vim 与插件命令速查
 - `~/.vim/doc/plugins.md` - 插件功能、依赖与安装方式
 - `~/.vim/doc/coc.md` - COC 配置、clangd/ccls 与 ctags 说明
+- `~/.vim/doc/directories.md` - 目录与文件逐项说明
 
 配置源码：
 
